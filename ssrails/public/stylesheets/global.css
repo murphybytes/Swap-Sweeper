@@ -1,0 +1,49 @@
+/* 
+    Document   : global.css
+    Created on : Dec 5, 2010, 7:44:41 PM
+    Author     : jam
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+div#global-container {
+    margin-top:5px;
+margin-left:15px;
+margin-right:15px;
+margin-bottom: 5px;
+    
+    width:1024px;
+    height:768px;
+}
+
+div#global-left-panel {
+    width:35%;
+    height:100%;
+    float:left;
+    background-image: url( '../images/woodgrain.png' );
+    border-right: 1px white solid;
+}
+
+div#global-divider {
+    width:2%;
+    height:100%;
+    float:left;
+    background-color: #505282;
+    border-right: 1px solid #7b4231;
+}
+
+div#global-right-panel {
+    width:62%;
+    height: 100%;
+    float:left;
+    background-color: #d5e5e9;
+}
