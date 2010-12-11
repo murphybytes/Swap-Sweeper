@@ -1,0 +1,17 @@
+## YAML Template.
+development:
+  app_id: 129272647132490
+  secret: 6c8a3fabef2c84d4488dec0ef3240ca6
+  host: 24.245.15.26:3000
+
+test:
+  app_id: 129272647132490
+  secret: 6c8a3fabef2c84d4488dec0ef3240ca6
+  host: 24.245.15.26
+
+
+production:
+  app_id: 129272647132490
+  secret: 6c8a3fabef2c84d4488dec0ef3240ca6
+
+
