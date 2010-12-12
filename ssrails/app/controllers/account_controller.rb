@@ -1,4 +1,5 @@
 class AccountController < ApplicationController
+  before_filter :check_for_access_token, :except => [ :authorize, :callback ]
   
   def index
   end
@@ -9,26 +10,37 @@ class AccountController < ApplicationController
       :redirect_uri => redirect_uri,
       :scope => 'email,user_photos')
   end
+
+  # store oauth access token in db and id of the db
+  # record containing access token in session so we don't
+  # pass around access token in plain text over wire
+  def sessionize_access_token( access_token )
+    rec = nil
+    unless Session.exists?( :oauth2_access_token => access_token )
+      rec = Session.create(:oauth2_access_token => access_token )
+    else
+      rec = Session.find( :first, :conditions => {:oauth2_access_token => access_token} )
+    end
+    session['token_id'] = rec.id
+  end
   
   def callback
-    logger.debug "called callback"
     @access_token = client.web_server.get_access_token( params[:code],    :redirect_uri => redirect_uri )
-    
-    logger.debug "ACCESS TOKEN -> #{ @access_token.inspect }"
-    user = JSON.parse( @access_token.get( '/me'))
-    logger.debug user.inspect
-    redirect_to :action => 'index'
-  end
+    sessionize_access_token( params[:code])
+    #user = JSON.parse( @access_token.get( '/me'))
+    # logger.debug user.inspect
 
-  private
-  def init
-    logger.debug "called init"
-    @config = YAML::load_file('config/application.yml')[RAILS_ENV]
-
+    if session.key?('redirect' )
+      logger.debug "authorization complete redirecting to #{session['redirect']}"
+      redirect_to session.delete( 'redirect' )
+    else
+      logger.debug "session redirect missing redireting to index"
+      redirect_to :action => 'index'
+    end
   end
 
   def client
-    config = YAML::load_file('config/application.yml')[RAILS_ENV]
+    config = YAML::load_file('config/application.yml')[Rails.env]
     OAuth2::Client.new( config['app_id'], config['secret'], :site => 'https://graph.facebook.com')
   end
 
@@ -36,7 +48,6 @@ class AccountController < ApplicationController
     uri = URI.parse(request.url)
     uri.path = '/account/callback'
     uri.query = nil
-    logger.debug "redirect uri -> #{uri.to_s}"
     uri.to_s
   end
 
