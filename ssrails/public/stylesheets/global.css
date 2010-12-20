@@ -26,15 +26,25 @@ margin-bottom: 5px;
 }
 
 div#global-left-panel {
-    width:35%;
+    width:368px;
     height:100%;
     float:left;
     background-image: url( '../images/woodgrain.png' );
     border-right: 1px white solid;
 }
 
+div#global-menu-panel {
+border-top:20px;
+position:absolute;
+zindex:100;
+}
+
+div.menu-item {
+
+}
+
 div#global-divider {
-    width:2%;
+    width:36px;
     height:100%;
     float:left;
     background-color: #505282;
@@ -42,8 +52,8 @@ div#global-divider {
 }
 
 div#global-right-panel {
-    width:62%;
+    width:590px;
     height: 100%;
     float:left;
-    background-color: #d5e5e9;
+    background-color: #c7d6d9;
 }
