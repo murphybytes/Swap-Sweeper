@@ -15,6 +15,7 @@ class AccountController < ApplicationController
   # record containing access token in session so we don't
   # pass around access token in plain text over wire
   def sessionize_access_token( access_token )
+
     rec = nil
     unless Session.exists?( :oauth2_access_token => access_token )
       rec = Session.create(:oauth2_access_token => access_token )

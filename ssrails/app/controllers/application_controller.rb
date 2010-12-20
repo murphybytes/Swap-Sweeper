@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
 
   def check_for_access_token
-    debugger
+
     logger.debug "calling authorize before processing #{request.url}"
     session_rec = nil
 
