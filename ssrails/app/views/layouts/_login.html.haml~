@@ -1,0 +1,7 @@
+= fb_connect_async_js
+- if current_facebook_user %>
+  = "Welcome #{current_facebook_user.first_name} #{current_facebook_user.last_name}!" 
+  = fb_logout_link("Logout of fb", request.url) %><br />
+- else
+  = fb_login_and_redirect('http://www.swapsweep.com:3000', :perms => 'email,user_birthday') %>
+

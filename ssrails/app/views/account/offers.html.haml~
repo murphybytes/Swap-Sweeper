@@ -1,0 +1,2 @@
+%h1 OFFERS
+= hidden_field_tag 'page_menu_id', 'offers'

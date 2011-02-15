@@ -15,6 +15,20 @@ root {
     display: block;
 }
 
+#menu {
+    
+}
+
+#menu ul, #menu li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    color: #339;
+    font-weight: bold;
+    }
+
+
+
 div#global-container {
     margin-top:5px;
 margin-left:15px;
@@ -56,4 +70,9 @@ div#global-right-panel {
     height: 100%;
     float:left;
     background-color: #c7d6d9;
+}
+
+div.content-area {
+    margin : 5px;
+    padding-left:5px;
 }

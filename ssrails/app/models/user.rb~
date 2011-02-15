@@ -1,0 +1,10 @@
+class User
+  attr_reader :name
+  def initialize( access_token )
+    url = URI.parse( "https://graph.facebook.com" )
+    response = NET::HTTP.start( url.host, url.port ) do | http |
+      http.get("/me?#{access_token}")
+
+  end
+  
+end

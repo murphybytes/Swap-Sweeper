@@ -1,3 +1,4 @@
-class Session < ActiveRecord::Base
-  validates_uniqueness_of :oauth2_access_token
+class Session
+  include Mongoid::Document
+  field :created, :type => DateTime
 end
