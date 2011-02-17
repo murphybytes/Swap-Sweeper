@@ -22,10 +22,17 @@ before_filter :check_for_access_token, :except => [ :authorize, :callback ]
   # record containing access token in session so we don't
   # pass around access token in plain text over wire
   def sessionize_access_token( access_token )
-    user = access_token.get('/me')
+    facebook_user = access_token.get('/me')
+    # create user in mongo if this is the first time we've seen her
+    user = User.where( :facebook_object_id => facebook_user['id'] ).first
+    unless user
+      user = User.create_from_facebook_user( facebook_user )
+    end
+    
     key = "token-#{user['id']}"
     session['token_id'] = key
     data_cache( key ) { access_token.token }
+    data_cache( user.memcache_key ) { user }
   end
   
   def callback
