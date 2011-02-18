@@ -1,0 +1,14 @@
+.form-heading
+  Add Offer
+= form_for @offering do |f|
+  .input-row
+    .input-label
+      = f.label :name, 'Offer Name'
+    .input-field
+      = f.text_field :name
+  .input-row
+    .input-label
+      &nbsp;
+    .input-field
+      = image_submit_tag 'submit.png'
+      = link_to image_tag( 'cancel.png', :border => 0), '/'

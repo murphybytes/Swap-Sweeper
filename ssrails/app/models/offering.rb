@@ -8,5 +8,5 @@ class Offering
   field :active, :type => Boolean, :default => true
   field :description, :type => String
   field :quantity, :type => Integer
-  
+  field :name, :type => String  
 end

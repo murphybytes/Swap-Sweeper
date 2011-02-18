@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :init
   attr_accessor :access_token
+  helper_method :user
 
   def check_for_access_token
 
@@ -11,12 +12,12 @@ class ApplicationController < ActionController::Base
 
     if session.key?('token_id')
       token = data_cache( session['token_id'] ) { nil }
-      if token 
+      if token
+        logger.debug "got an access token from memcached"
         client = OAuth2::Client.new( config['app_id'], config['secret'], :site => 'https://graph.facebook.com', :parse_json => true )
         @access_token = OAuth2::AccessToken.new( client, token )
       end
-    end
-    
+    end    
 
     # if this is the first time we've seen this user
     # hang on to the url that we are trying to go to
@@ -29,11 +30,25 @@ class ApplicationController < ActionController::Base
   end
 
   def user
-    
+    user = nil
+    if session.key?( 'user_id' ) 
+      user_id = session['user_id']
+      user = data_cache( user_id ) { nil }
+      logger.debug "got user #{ user_id } from cache" 
+      return user if user 
+    end
+
     logger.debug "TOKEN #{ @access_token }"
-    response = @access_token.get('/me')
-    logger.debug "USER #{response}"
-    response
+    user = @access_token.get('/me')
+    
+    if user 
+      logger.debug "got user from fb adding to cache"
+      data_cache( user['id'] ) { user }
+    else
+      logger.warn "could not find user from fb" 
+    end
+
+    user
   end
 
   def init

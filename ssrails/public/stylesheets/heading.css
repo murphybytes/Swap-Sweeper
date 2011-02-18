@@ -1,0 +1,12 @@
+div#page-heading {
+height: 50px;
+
+}
+
+div#heading-left {
+float:left;
+}
+
+div#heading-right {
+float:right;
+}

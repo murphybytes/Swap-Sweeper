@@ -29,10 +29,12 @@ before_filter :check_for_access_token, :except => [ :authorize, :callback ]
       user = User.create_from_facebook_user( facebook_user )
     end
     
-    key = "token-#{user['id']}"
-    session['token_id'] = key
-    data_cache( key ) { access_token.token }
-    data_cache( user.memcache_key ) { user }
+    memcache_key = "token-#{facebook_user['id']}"
+    # key to fetch oauth token from memcache
+    session['token_id'] = memcache_key
+    session['user_id'] = facebook_user['id']
+    data_cache( memcache_key ) { access_token.token }
+    data_cache( facebook_user['id']) { facebook_user }
   end
   
   def callback
@@ -40,9 +42,6 @@ before_filter :check_for_access_token, :except => [ :authorize, :callback ]
     self.access_token = client.web_server.get_access_token( params[:code],    :redirect_uri => redirect_uri )
     logger.debug "ACCESS TOKEN -> #{self.access_token.inspect}"
     sessionize_access_token( self.access_token )
-    user = self.access_token.get( '/me')
-    logger.debug user.inspect
-
 
     if session.key?('redirect' )
       logger.debug "authorization complete redirecting to #{session['redirect']}"
