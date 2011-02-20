@@ -1,6 +1,7 @@
 .form-heading
   Add Offer
 = form_for @offering do |f|
+  = f.hidden_field :facebook_user_id
   .input-row
     .input-label
       = f.label :name, 'Offer Name'

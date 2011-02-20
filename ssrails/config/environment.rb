@@ -6,3 +6,5 @@ Ssrails::Application.initialize!
 
 require 'memcache'
 CACHE = MemCache.new( "127.0.0.1")
+
+CONFIG = YAML::load_file('config/application.yml')[Rails.env]

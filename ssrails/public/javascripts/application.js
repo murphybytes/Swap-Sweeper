@@ -1,33 +1,76 @@
-function MenuItem( elt ) {
-    this.elt = elt;
-    var parts = elt.id.split("_");
-    this.index = parseInt( parts[1]);
-    this.menu_target = elt.protocol + "//" + elt.host + "/account/" + parts[0];
+
+
+
+function fnMainMenu() {
 
 }
 
-MenuItem.prototype.invoke = function() {
-  if( $(this.elt).hasClass('unselected') ) {
-      location = this.menu_target;
-  }
+
+
+function fnOnLoginStatusChanged( action_name ) {
+    var action = null;
+
+    if( action_name == 'login' && window.location.pathname == '/account/not_signed_in' ) {
+        action = window.location.protocol + '//' + window.location.host +  '/account/login?redirect=' +
+            window.location.protocol + '//' + window.location.host + '/';
+    } else {
+        action = window.location.protocol + '//' + window.location.host + '/account/' +
+            action_name + '?redirect=' + window.location.href;
+    }
+
+    window.location.href = action;
 }
 
-$(document).ready( function() {
+function fnOnFBSessionStatus(session) {
+    if( session ) {
+        $('a#logout').show();
+    } else {
+        $('a#login').show();    
+    }
+    
+    // set up event handlers for login/logout links
+    // note that visibility of these links is 
+    // controlled by event handlers defined elsewhere
+    $('a#logout').click( function(e) {
+            e.preventDefault();
+            FB.logout( null );
+        });
+    $('a#login').click(function(e){
+            e.preventDefault();
+            FB.login( null ); 
+        });
+    
+}
 
-    var page_menu_id = $('input#page_menu_id').val();
+function fnFacebookInit() {
+    window.fbAsyncInit = function() {
+        FB.init( { appId : '129272647132490', status : true, cookie : true, xfbml : true } );
+        
+        FB.getLoginStatus(function(response) {
+            if( response.session ) {
+                fnOnFBSessionStatus(response.session);
+            } else {
+                fnOnFBSessionStatus();
+            }
+        });
+        
+
+        FB.Event.subscribe( 'auth.logout', function( response ) {
+                fnOnLoginStatusChanged( 'logout' );
+            });
+        FB.Event.subscribe( 'auth.login', function( response ) {
+                fnOnLoginStatusChanged( 'login' );
+            });
 
 
-    $("a#" + page_menu_id + "_0").show();
-    var selected_menu = page_menu_id + "_1";
-    $('.menu-item.unselected').each( function() {
-        if( this.id != selected_menu ) {
-            $(this).show();
-        }
-    });
-    $('.menu-item').click( function(e) {
-        e.preventDefault();
+    };
 
-        var menu = new MenuItem( this );
-        menu.invoke();
-    }) ;
-});
+    (function() {
+        var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+        '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+    }());
+
+
+}

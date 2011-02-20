@@ -1,6 +1,8 @@
 class AccountController < ApplicationController
-before_filter :check_for_access_token, :except => [ :authorize, :callback ]
-  
+  before_filter :check_for_access_token, :except => [ :authorize, :callback, :logout, :not_signed_in, :login ]
+
+  FACEBOOK_PERMISSIONS="user_about_me,email,user_photos,read_stream"
+
   def index
     user
     logger.debug "CURRENT -> " 
@@ -10,13 +12,32 @@ before_filter :check_for_access_token, :except => [ :authorize, :callback ]
     
   end
 
+  def logout
+    session.clear
+    redirect_to url_for( :action => 'not_signed_in' ) and return
+  end
+
+  def login
+    session.clear
+    
+    redirect_to url_for( :action => :authorize )  and return
+  end
+
+  def not_signed_in
+    # if we are signed in redirect to home
+    ( redirect_to '/' and return ) if logged_in?
+  end
+    
+
   def authorize
     logger.debug "called authorize #{client.inspect}"
     
     redirect_to client.web_server.authorize_url(
       :redirect_uri => redirect_uri,
-      :scope => 'user_about_me,email,user_photos')
+      :scope => FACEBOOK_PERMISSIONS)
   end
+
+  
 
   # store oauth access token in db and id of the db
   # record containing access token in session so we don't
@@ -53,9 +74,9 @@ before_filter :check_for_access_token, :except => [ :authorize, :callback ]
   end
 
   def client
-    config = YAML::load_file('config/application.yml')[Rails.env]
-    OAuth2::Client.new( config['app_id'], config['secret'], :site => 'https://graph.facebook.com', :parse_json => true )
+    OAuth2::Client.new( CONFIG['app_id'], CONFIG['secret'], :site => 'https://graph.facebook.com', :parse_json => true )
   end
+  
 
   def redirect_uri
     uri = URI.parse(request.url)

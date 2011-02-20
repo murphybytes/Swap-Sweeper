@@ -4,13 +4,20 @@
  %head
   %title Swap Sweep
   = stylesheet_link_tag :all 
-  %script(  type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' )
+  %script( type='text/javascript' src='http://connect.facebook.net/en_US/all.js' )
+  %script( type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' )
   = javascript_include_tag :defaults
   = csrf_meta_tag
 
 %body
  #main-page
+  = render 'layouts/heading' 
   = yield
+#fb-root
+:javascript
+  fnFacebookInit();
+
+
 
 
 

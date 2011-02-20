@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   before_filter :init
   attr_accessor :access_token
   helper_method :user
+  helper_method :logged_in?
+  
+  def logged_in?
+    session.key?('token_id')
+  end
 
   def check_for_access_token
 
@@ -24,8 +29,9 @@ class ApplicationController < ActionController::Base
     # so we can come back after we log into facebook
 
     unless @access_token
-      session['redirect'] = request.url
-      redirect_to url_for( :controller => 'account', :action => 'authorize' )
+#      session['redirect'] = request.url
+ #     redirect_to url_for( :controller => 'account', :action => 'authorize' )
+      redirect_to url_for( :controller => 'account', :action => 'not_signed_in' )
     end
   end
 

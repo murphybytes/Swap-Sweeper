@@ -1,5 +1,9 @@
 #page-heading
   #heading-left
-    = render  'layouts/menu'
+    - if logged_in? 
+      = render  'layouts/menu'
   #heading-right
-    = "Welcome #{user['name']}"
+    - if logged_in?
+      = "Welcome #{user['name']}"
+    = link_to 'Log Out', '#', :id => 'logout', :style => 'display:none;' 
+    = link_to 'Log In', '#', :id => 'login', :style => 'display:none;'
