@@ -9,4 +9,5 @@ class Offering
   field :description, :type => String
   field :quantity, :type => Integer
   field :name, :type => String  
+  references_one :offer_type
 end

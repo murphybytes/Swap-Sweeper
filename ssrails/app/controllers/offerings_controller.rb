@@ -3,6 +3,7 @@ class OfferingsController < ApplicationController
   def new
     logger.debug "creating a new offering for"
     @offering = Offering.new( :facebook_user_id => user['id'] )
+    
   end
 
 end

@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
     unless @access_token
 #      session['redirect'] = request.url
  #     redirect_to url_for( :controller => 'account', :action => 'authorize' )
+      session.clear
       redirect_to url_for( :controller => 'account', :action => 'not_signed_in' )
     end
   end
