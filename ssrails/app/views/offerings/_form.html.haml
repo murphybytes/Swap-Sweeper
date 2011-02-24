@@ -1,0 +1,28 @@
+= form_for @offering do |f|
+  = f.hidden_field :facebook_user_id
+  .input-row
+    .input-label
+      = f.label :name, 'Title'
+    .input-field
+      = f.text_field :name
+  .input-row
+    .input-label
+      &nbsp;
+    .input-field
+      = link_to image_tag( 'addphoto.png', :border => 0), '#', :id => 'new-offer-add-photo'    
+  .input-row
+    .input-label
+      = f.label :description, 'Description'
+    .input-field
+      = f.text_area :description
+  .input-row
+    .input-label
+      = f.label :offer_type, "Category"
+    .input-label
+      = f.select :offer_type, OfferType.all.collect { |ot| [ot.name, ot.id] }, :include_blank => true
+  .input-row
+    .input-label
+      &nbsp;
+    .input-field
+      = image_submit_tag 'submit.png'
+      = link_to image_tag( 'cancel.png', :border => 0), '/'

@@ -4,10 +4,10 @@ class Offering
   include Mongoid::Document
   include Swap::Mongo
   field :facebook_user_id, :type => Integer
-  field :created, :type => DateTime
+  field :created, :type => DateTime, :default => DateTime.now
   field :active, :type => Boolean, :default => true
   field :description, :type => String
   field :quantity, :type => Integer
   field :name, :type => String  
-  references_one :offer_type
+  referenced_in :offer_type, :inverse_of => :offerings
 end
