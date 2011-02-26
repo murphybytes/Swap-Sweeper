@@ -4,7 +4,10 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 Ssrails::Application.initialize!
 
+
+
 require 'memcache'
+
 CACHE = MemCache.new( "127.0.0.1")
 
 CONFIG = YAML::load_file('config/application.yml')[Rails.env]

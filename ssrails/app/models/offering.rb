@@ -10,4 +10,5 @@ class Offering
   field :quantity, :type => Integer
   field :name, :type => String  
   referenced_in :offer_type, :inverse_of => :offerings
+  references_many :photos
 end

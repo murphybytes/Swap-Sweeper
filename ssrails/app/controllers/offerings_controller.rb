@@ -11,9 +11,19 @@ class OfferingsController < ApplicationController
 
   def create 
     begin
+      logger.debug "param #{ params.inspect }"
       params[:offering][:offer_type] = OfferType.find( params[:offering][:offer_type] )
-      Offering.create!( params[:offering] )
-   
+      offering = Offering.new( params[:offering] )
+      if params.key?(:primary_photo)
+        photo = Photo.new
+        photo.image = params[:primary_photo]
+        photo.primary = true
+        photo.save!
+        offering.photos << photo
+      end
+      offering.save!
+      
+      
 
       redirect_to offerings_path and return
    rescue
