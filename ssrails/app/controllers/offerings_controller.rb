@@ -6,7 +6,17 @@ class OfferingsController < ApplicationController
     
   end
   
+
+  def xdestroy
+
+    logger.debug ">>>>>>>>>>> CALLED DESTROY"
+    offering = Offering.find( params[:id] )
+    offering.destroy
+    redirect_to offerings_path
+  end
+  
   def index
+    @offerings = Offering.where( :facebook_user_id => user['id'] ).ascending(:name)
   end
 
   def create 
@@ -21,6 +31,17 @@ class OfferingsController < ApplicationController
         photo.save!
         offering.photos << photo
       end
+
+      if params.key?(:photos )
+        params[:photos].each do | photo_key |
+          photo = Photo.new
+          photo.image = params[:photos][photo_key]
+          photo.primary = false
+          photo.save!
+          offering.photos << photo
+        end
+      end
+
       offering.save!
       
       

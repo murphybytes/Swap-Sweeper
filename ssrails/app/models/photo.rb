@@ -4,6 +4,7 @@ class Photo
   referenced_in :offering, :inverse_of => :photos
   field :primary, :type => Boolean, :default => false
   field :name, :type => String
+  after_destroy :destroy_photo
 
   def data( opts = {} )
     path = ""
@@ -17,6 +18,15 @@ class Photo
     Mongo::GridFileSystem.new(Mongoid.database).open( path ,"r") do | file |
       yield file
     end
+  end
+
+  def destroy_photo
+
+      grid_file_system = Mongo::GridFileSystem.new(Mongoid.database)
+      grid_file_system.delete( self.image.path )
+      grid_file_system.delete( self.image.thumb.path )
+
+
   end
 
 end

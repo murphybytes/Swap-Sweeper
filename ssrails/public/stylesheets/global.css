@@ -93,3 +93,22 @@ div.content-area {
     margin : 5px;
     padding-left:5px;
 }
+
+div.offer-row {
+    clear:both;
+    height:106px;
+    border-bottom: 1px solid #898989;
+    padding-top:10px;
+}
+div.offer-thumb {
+    float:left;
+    width:106px;
+    height:106px;
+}
+div.offer-title-col {
+float:left;
+width:250px;
+}
+div.offer-control-col {
+    float:left;
+}

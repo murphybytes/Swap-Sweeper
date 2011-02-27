@@ -1,2 +1,16 @@
 %p
   Offerings
+- @offerings.each do |offer|
+  .offer-row
+    .offer-thumb
+      - if offer.thumb_url
+        = image_tag offer.thumb_url
+      - else
+        = image_tag 'blank_thumb.png'
+    .offer-title-col
+      = offer.name
+    .offer-control-col
+      %div
+        = link_to image_tag('edit.png', :border => 0), '#'
+      %div
+        = link_to( image_tag( 'delete.png', :border => 0), {:controller => 'offerings', :action => 'xdestroy', :id => offer.id.to_s}  )
