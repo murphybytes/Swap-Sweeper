@@ -6,9 +6,9 @@ class Offering
   field :facebook_user_id, :type => Integer
   field :created, :type => DateTime, :default => DateTime.now
   field :active, :type => Boolean, :default => true
-  field :description, :type => String
+  field :description, :type => String, :description => ""
   field :quantity, :type => Integer
-  field :name, :type => String  
+  field :name, :type => String, :default => ""  
   referenced_in :offer_type, :inverse_of => :offerings
   references_many :photos, :dependent => :destroy
   

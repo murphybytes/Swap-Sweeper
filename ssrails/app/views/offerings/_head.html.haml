@@ -1,0 +1,8 @@
+- if defined?( @offering ) 
+  %meta{ :property => 'og:title', :content => @offering.name }
+  %meta{ :property => 'og:type', :content => 'product' }
+  %meta{ :property => 'og:url', :content => "#{request.protocol + request.host_with_port}/offerings/#{ @offering.id.to_s }" }
+  - if @offering.thumb_url
+    %meta{ :property => 'og:image', :content => request.protocol + request.host_with_port + @offering.thumb_url }
+  %meta{ :property => 'og:site_name', :content => 'Swap Sweep' }
+  %meta{ :property => 'og:description', :content => @offering.description }

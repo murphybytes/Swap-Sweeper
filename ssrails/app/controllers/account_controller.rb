@@ -1,7 +1,7 @@
 class AccountController < ApplicationController
   before_filter :check_for_access_token, :except => [ :authorize, :callback, :logout, :not_signed_in, :login ]
 
-  FACEBOOK_PERMISSIONS="user_about_me,email,user_photos,read_stream"
+  FACEBOOK_PERMISSIONS="user_about_me,email,user_photos,read_stream,publish_stream"
 
   def index
     user

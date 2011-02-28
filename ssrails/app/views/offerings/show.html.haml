@@ -1,0 +1,4 @@
+%p 
+  = @offering.name
+
+%fb:like{ :href => "#{request.protocol + request.host_with_port}/offerings/#{@offering.id.to_s}", :show_faces => 'no' }

@@ -8,9 +8,9 @@
       - else
         = image_tag 'blank_thumb.png'
     .offer-title-col
-      = offer.name
+      = link_to offer.name, offer
     .offer-control-col
       %div
         = link_to image_tag('edit.png', :border => 0), '#'
       %div
-        = link_to( image_tag( 'delete.png', :border => 0), {:controller => 'offerings', :action => 'xdestroy', :id => offer.id.to_s}  )
+        = link_to image_tag( 'delete.png', :border => 0), :action => 'xdestroy', :id => offer.id.to_s

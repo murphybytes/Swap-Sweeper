@@ -1,9 +1,14 @@
 class OfferingsController < ApplicationController
   before_filter :check_for_access_token
+
   def new
     logger.debug "creating a new offering for"
     @offering = Offering.new( :facebook_user_id => user['id'] )
     
+  end
+  
+  def show
+    @offering = Offering.find( params[:id] )
   end
   
 
@@ -16,12 +21,14 @@ class OfferingsController < ApplicationController
   end
   
   def index
+      logger.debug "SESSION > #{ session.inspect }"
     @offerings = Offering.where( :facebook_user_id => user['id'] ).ascending(:name)
   end
 
   def create 
     begin
       logger.debug "param #{ params.inspect }"
+
       params[:offering][:offer_type] = OfferType.find( params[:offering][:offer_type] )
       offering = Offering.new( params[:offering] )
       if params.key?(:primary_photo)
@@ -44,13 +51,21 @@ class OfferingsController < ApplicationController
 
       offering.save!
       
-      
+      @access_token.post( '/me/links', generate_fb_update_params( offering ) )
 
       redirect_to offerings_path and return
    rescue
       logger.warn "Create offering failed for user #{user['id']} error #{ $! }"
       flash[:error] = $!
    end
+  end
+
+  def generate_fb_update_params( new_offering )
+    prefix = request.protocol + request.host_with_port
+    params = {}
+    params['link'] = "#{prefix}/offerings/#{new_offering.id.to_s}"
+    logger.debug "FB UPDATE PARAMS #{params.inspect}"
+    params
   end
 
   
