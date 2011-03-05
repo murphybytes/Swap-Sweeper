@@ -28,8 +28,6 @@ class OfferingsController < ApplicationController
   def create 
     begin
       logger.debug "param #{ params.inspect }"
-
-      params[:offering][:offer_type] = OfferType.find( params[:offering][:offer_type] )
       offering = Offering.new( params[:offering] )
       if params.key?(:primary_photo)
         photo = Photo.new
@@ -48,7 +46,9 @@ class OfferingsController < ApplicationController
           offering.photos << photo
         end
       end
-
+      
+      offering.descriptive_tags = params[:descriptive_tags]
+      offering.ask_tags = params[:ask_tags]
       offering.save!
       
       @access_token.post( '/me/links', generate_fb_update_params( offering ) )

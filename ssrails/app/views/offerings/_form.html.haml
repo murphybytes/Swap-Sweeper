@@ -17,16 +17,22 @@
       = link_to image_tag( 'add_more_photos.png', :border => 0), '#', :id => 'new-offer-add-photo'    
   #add-photo-input{ :style => 'display:none;' }
     &nbsp;
-  .input-row
-    .input-label
+  .input-area
+    .input-vertical-label
       = f.label :description, 'Description'
-    .input-field
-      = f.text_area :description
-  .input-row
-    .input-label
-      = f.label :offer_type, "Category"
-    .input-label
-      = f.select :offer_type, OfferType.all.collect { |ot| [ot.name, ot.id] }, :include_blank => true
+    %div
+      = f.text_area :description, :style => 'width:100%;', :rows => 5
+  .input-area
+    .input-vertical-label
+      = label_tag :descriptive_tags, "One or more space separated terms that describe this item."
+    %div
+      = text_field_tag :descriptive_tags, nil, :style => 'width:100%;'
+  .input-area
+    .input-vertical-label
+      = label_tag :ask_tags, "One or more space separated terms describing what you are asking for in exchange for this item."
+    %div
+      = text_field_tag :ask_tags, nil, :style => 'width:100%;'
+
   .input-row
     .input-label
       &nbsp;
