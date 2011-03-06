@@ -3,7 +3,8 @@ class OfferingsController < ApplicationController
 
   def new
     logger.debug "creating a new offering for"
-    @offering = Offering.new( :facebook_user_id => user['id'] )
+    @user = User.where( :facebook_object_id => facebook_user['id'] ).first
+    @offering = Offering.new( :facebook_user_id => facebook_user['id'], :user => @user )    
     
   end
   
@@ -21,14 +22,15 @@ class OfferingsController < ApplicationController
   end
   
   def index
+    @page_title = "My Offers"
       logger.debug "SESSION > #{ session.inspect }"
-    @offerings = Offering.where( :facebook_user_id => user['id'] ).ascending(:name)
+    @offerings = Offering.where( :facebook_user_id => facebook_user['id'] ).ascending(:name)
   end
 
   def create 
     begin
       logger.debug "param #{ params.inspect }"
-      offering = Offering.new( params[:offering] )
+      offering = Offering.new( params[:offering],  )
       if params.key?(:primary_photo)
         photo = Photo.new
         photo.image = params[:primary_photo]

@@ -1,5 +1,3 @@
-%p
-  Offerings
 - @offerings.each do |offer|
   .offer-row
     .offer-thumb
@@ -8,7 +6,12 @@
       - else
         = image_tag 'blank_thumb.png'
     .offer-title-col
-      = link_to offer.name, offer
+      %div= link_to offer.name, offer, :class => 'title-link'
+      %div= "Created #{offer.created.strftime( "%B %e, %Y" )}"
+      - if offer.current_auction
+        %div= "Bids: #{ offer.current_auction.bids.size }"
+      - else
+        %div= "Auction Closed"
     .offer-control-col
       %div
         = link_to image_tag('edit.png', :border => 0), '#'

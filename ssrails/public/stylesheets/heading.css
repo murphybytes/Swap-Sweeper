@@ -1,5 +1,5 @@
 div#page-heading {
-height: 50px;
+height: auto;
 
 }
 
@@ -9,4 +9,11 @@ float:left;
 
 div#heading-right {
 float:right;
+}
+
+div#page-banner {
+ clear:both;
+ margin-top:20px;
+ font-size:24px;
+ font-weight:500;
 }

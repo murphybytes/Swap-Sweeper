@@ -4,8 +4,21 @@ class AccountController < ApplicationController
   FACEBOOK_PERMISSIONS="user_about_me,email,user_photos,read_stream,publish_stream"
 
   def index
-    user
-    logger.debug "CURRENT -> " 
+    memcached_key = "friends-offering-#{facebook_user['id']}"
+    @friends_offerings = data_cache( memcached_key ) { nil }
+    unless @friends_offerings
+      @friends_offerings = data_cache( memcached_key ) do
+        Offering.any_in( :facebook_user_id => my_friends ).excludes( :active => false ).desc( :created )
+      end
+    end    
+  end
+
+  ######################
+  #  TODO: Send an invitation
+  #  to friends to join swapsweep
+  ######################
+  def invite
+    
   end
 
   def offers
@@ -49,6 +62,8 @@ class AccountController < ApplicationController
     unless user
       user = User.create_from_facebook_user( facebook_user )
     end
+    
+    #self.user = facebook_user 
     
     memcache_key = "token-#{facebook_user['id']}"
     # key to fetch oauth token from memcache

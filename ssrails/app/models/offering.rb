@@ -1,20 +1,25 @@
-require 'swap_utils'
 
 class Offering
   include Mongoid::Document
-  include Swap::Mongo
 
+  field :created, :type => DateTime
+  field :updated, :type => DateTime
 
   field :facebook_user_id, :type => Integer
-  field :created, :type => DateTime, :default => DateTime.now
   field :active, :type => Boolean, :default => true
   field :description, :type => String, :description => ""
   field :quantity, :type => Integer
   field :name, :type => String, :default => ""  
-  embeds_many :tags
 
+  embeds_many :tags
+  references_many :auctions, :stored_as => :array, :inverse_of => :offering, :dependent => :destroy
+  referenced_in :user
   references_many :photos, :stored_as => :array, :inverse_of => :offering, :dependent => :destroy
   
+  before_create :on_create
+  before_save :on_save
+
+
   def thumb_url
     photos.each do |photo|
       if photo.primary
@@ -32,6 +37,25 @@ class Offering
     set_tags( :ask, tags_string )
   end
 
+  def current_auction
+    self.auctions.each do | auction |
+      return auction if auction.open
+    end
+    nil
+  end
+
+  def on_save
+    self.updated = DateTime.now
+  end
+
+  def on_create
+    self.created = DateTime.now
+    self.updated = DateTime.now
+    self.auctions << Auction.new
+  end
+
+
+
   private
   def set_tags( classifier, tags_string )
     tags = tags_string.split( " " )
@@ -39,5 +63,6 @@ class Offering
       self.tags << Tag.new( :name => tag, :classifier => classifier )
     end
   end
+
 
 end

@@ -108,8 +108,11 @@ div.offer-thumb {
 }
 div.offer-title-col {
 float:left;
-width:250px;
+width:350px;
 }
 div.offer-control-col {
     float:left;
+}
+
+a.title-link {
 }

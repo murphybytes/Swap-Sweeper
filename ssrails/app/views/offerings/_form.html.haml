@@ -1,5 +1,6 @@
 = form_for( @offering, :html => {:multipart => true}) do |f|
   = f.hidden_field :facebook_user_id
+  = f.hidden_field :user_id
   .input-row
     .input-label
       = f.label :name, 'Title'

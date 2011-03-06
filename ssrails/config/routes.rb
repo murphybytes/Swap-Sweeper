@@ -13,11 +13,13 @@ Ssrails::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
   match 'account/logout' => 'account#logout', :as => :account_logout
   match 'account/login' => 'account#login', :as => :account_login
+  match 'invite' => 'account#invite', :as => :invite
+  match 'auctions/:id/bid' => 'auctions#bid', :as => :bid
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :offerings
   resources :photos
-
+  resources :auctions
   # Sample resource route with options:
   #   resources :products do
   #     member do

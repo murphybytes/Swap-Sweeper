@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :init
   attr_accessor :access_token
-  helper_method :user
+  helper_method :facebook_user
+
+  helper_method :my_friends
   helper_method :logged_in?
   
   def logged_in?
@@ -36,27 +38,31 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def user
-    user = nil
+  def facebook_user
+    return @facebook_user_ if defined?(@facebook_user_) && @facebook_user_ 
     if session.key?( 'user_id' ) 
       user_id = session['user_id']
-      user = data_cache( user_id ) { nil }
-      logger.debug "got user #{ user_id } from cache" 
-      return user if user 
+      @facebook_user_ = data_cache( user_id ) { nil }
+      logger.debug "got user #{ user_id } from cache" if @facebook_user_
+      logger.debug "CACHE MISS -> user #{user_id} not in memcached" unless @facebook_user_
+      return @facebook_user_ if @facebook_user_ 
     end
 
     logger.debug "TOKEN #{ @access_token }"
-    user = @access_token.get('/me')
+    @facebook_user_ = @access_token.get('/me')
     
-    if user 
+    if @facebook_user_
       logger.debug "got user from fb adding to cache"
-      data_cache( user['id'] ) { user }
+      data_cache( user['id'] ) { @facebook_user_ }
     else
       logger.warn "could not find user from fb" 
     end
 
-    user
+    @facebook_user_
   end
+
+  
+
 
   def init
     @access_token = nil
@@ -71,6 +77,18 @@ class ApplicationController < ActionController::Base
     logger.debug "CACHE #{key} #{output}"
     output
   end
+
+  def my_friends
+    memcached_key = "friends-#{ self.facebook_user['id'] }"
+    cached_friends = data_cache( memcached_key ) { nil }
+    unless cached_friends
+      result_from_facebook = @access_token.get('/me/friends')
+      raise "Unable to retrieve friends from FB for user #{user['id']} #{caller(0)[0]}" unless result_from_facebook
+      cached_friends = data_cache(memcached_key) { result_from_facebook['data'] }
+    end
+    cached_friends.collect { |friend| friend['id'] } 
+  end
+
 
 
 
