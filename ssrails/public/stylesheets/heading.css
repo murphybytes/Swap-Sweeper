@@ -1,6 +1,7 @@
 div#page-heading {
 height: auto;
-
+    font-family: Verdana, Geneva, sans-serif;
+    font-size:14px;
 }
 
 div#heading-left {
@@ -9,11 +10,17 @@ float:left;
 
 div#heading-right {
 float:right;
+text-align:right;
 }
 
 div#page-banner {
  clear:both;
  margin-top:20px;
- font-size:24px;
+ margin-bottom:10px;
+ padding-bottom:10px;
+ border-bottom: 1px #d8d8d8 solid;
+ font-size:20px;
+
  font-weight:500;
 }
+

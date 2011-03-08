@@ -10,6 +10,7 @@ class OfferingsController < ApplicationController
   
   def show
     @offering = Offering.find( params[:id] )
+    @page_title = @offering.name
   end
   
 
@@ -29,7 +30,7 @@ class OfferingsController < ApplicationController
 
   def create 
     begin
-      logger.debug "param #{ params.inspect }"
+      logger.debug "OFFERING CREATE param #{ params.inspect }"
       offering = Offering.new( params[:offering],  )
       if params.key?(:primary_photo)
         photo = Photo.new
@@ -40,9 +41,9 @@ class OfferingsController < ApplicationController
       end
 
       if params.key?(:photos )
-        params[:photos].each do | photo_key |
+        params[:photos].each do | photo_key, multipart_file |
           photo = Photo.new
-          photo.image = params[:photos][photo_key]
+          photo.image = multipart_file
           photo.primary = false
           photo.save!
           offering.photos << photo
