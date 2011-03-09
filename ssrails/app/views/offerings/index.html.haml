@@ -13,7 +13,5 @@
       - else
         %div= "Auction Closed"
     .offer-control-col
-      %div
-        = link_to image_tag('edit.png', :border => 0), '#'
-      %div
-        = link_to image_tag( 'delete.png', :border => 0), :action => 'xdestroy', :id => offer.id.to_s
+      .link-button= link_to 'Edit', '#', :class => 'title-link'
+      .link-button= link_to 'Delete', {:action => 'xdestroy', :id => offer.id.to_s}, :class => 'title-link'

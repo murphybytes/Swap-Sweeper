@@ -66,6 +66,7 @@ class ApplicationController < ActionController::Base
 
   def init
     @access_token = nil
+    @page_title = "Swap Sweep"
   end
 
   def data_cache( key )

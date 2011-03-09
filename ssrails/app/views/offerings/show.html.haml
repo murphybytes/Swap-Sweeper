@@ -1,13 +1,18 @@
+%div{ :style => 'margin:10px;font-size:14px;' }
+  %span{ :style => 'font-weight:bold;' }
+    Offered By:
+  = @offering.user.name
+  
 %div{ :style => 'margin:10px;' }= @offering.description
-.link-button
-  = link_to 'Bid on This', bid_path( @offering.current_auction ), :class => 'title-link'
+.link-button{:style=> 'vertical-align:23%;' }= link_to 'Bid on This', bid_path( @offering.current_auction ), :class => 'title-link'
+%fb:like{  :href => "#{request.protocol + request.host_with_port}/offerings/#{@offering.id.to_s}", :show_faces => 'no' }    
 %div{ :style => 'margin-top:10px; text-align:center;' }
   - unless @offering.photos.empty?
     %ul{ :id => 'pikame' }
       - @offering.photos.each do |photo|
         %li
           %img{ :src =>  "/photos/#{photo.id.to_s}?thumb", :ref => "/photos/#{photo.id.to_s}" }
-%fb:like{ :href => "#{request.protocol + request.host_with_port}/offerings/#{@offering.id.to_s}", :show_faces => 'no' }    
+
 
 
 :javascript

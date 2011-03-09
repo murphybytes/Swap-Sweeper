@@ -15,10 +15,13 @@ text-align:right;
 
 div#page-banner {
  clear:both;
- margin-top:20px;
+ padding-left:15px;
+ margin-top:10px;
  margin-bottom:10px;
  padding-bottom:10px;
+ padding-top:10px;
  border-bottom: 1px #d8d8d8 solid;
+ border-top: 1px #d8d8d8 solid;
  font-size:20px;
 
  font-weight:500;
