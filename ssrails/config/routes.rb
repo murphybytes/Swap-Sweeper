@@ -19,7 +19,10 @@ Ssrails::Application.routes.draw do
   #   resources :products
   resources :offerings
   resources :photos
-  resources :auctions
+  resources :auctions do
+    resources :bids
+  end
+
   # Sample resource route with options:
   #   resources :products do
   #     member do

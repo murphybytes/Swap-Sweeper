@@ -69,6 +69,8 @@ class AccountController < ApplicationController
     # key to fetch oauth token from memcache
     session['token_id'] = memcache_key
     session['user_id'] = facebook_user['id']
+    user.session = Session.new( :token => access_token.token )
+    user.save!
     data_cache( memcache_key ) { access_token.token }
     data_cache( facebook_user['id']) { facebook_user }
   end

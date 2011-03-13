@@ -129,6 +129,17 @@ a.title-link {
  text-decoration:none;
 }
 
+a.title-link:hover {
+    text-decoration:underline;
+}
+
+
+a.title-link-b {
+ color:#484848;
+ font-weight: 600;
+ text-decoration:none;
+}
+
 .link-button {
  background-image: url('../images/linkgrad.png');
  background-repeat: repeat-x;
@@ -144,9 +155,33 @@ a.title-link {
  opacity:.8
 }
 
+
+
 .link-button:hover {
     opacity:1;
 }
+
+
+.link-button-b {
+ background-image: url('../images/linkgrad.png');
+ background-repeat: repeat-x;
+ -moz-border-radius:3px;
+ border-radius:3px;
+ border: 1px #575757 solid;
+ padding-left:5px;
+ padding-right:5px;
+ padding-bottom:3px;
+ padding-top:3px;
+ margin:2px 10px;
+ text-align:center;
+ display: block;
+ opacity:.8
+}
+
+.link-button-b:hover {
+    opacity:1;
+}
+
 
 div.page-heading {
 font-size: 20px;

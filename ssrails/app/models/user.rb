@@ -7,6 +7,7 @@ class User
   field :facebook_object_id, :type => Integer
   field :account_black_balled, :type => Boolean, :default => false
   field :name, :type => String
+  embeds_one :session
   before_create :on_create
   validates_uniqueness_of :facebook_object_id
   references_many :offerings, :stored_as => :array, :inverse_of => :user
@@ -22,4 +23,6 @@ class User
   def on_create
     self.created = DateTime.now
   end
+
+  
 end

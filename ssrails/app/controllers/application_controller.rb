@@ -19,6 +19,16 @@ class ApplicationController < ActionController::Base
 
     if session.key?('token_id')
       token = data_cache( session['token_id'] ) { nil }
+      # not in memcached, try mongo
+      unless token
+        if session.key?( 'user_id' )
+          logger.debug "fetching token from mongo for user #{ session['user_id'] }"
+          user = User.where( :facebook_user_id => session['user_id'] ).first
+          token = user.session.token if user && user.session            
+        end        
+      end
+      
+      
       if token
         logger.debug "got an access token from memcached"
         client = OAuth2::Client.new( config['app_id'], config['secret'], :site => 'https://graph.facebook.com', :parse_json => true )
