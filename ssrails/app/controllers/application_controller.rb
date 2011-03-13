@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :init
   attr_accessor :access_token
   helper_method :facebook_user
-
+  helper_method :current_user
   helper_method :my_friends
   helper_method :logged_in?
   
@@ -62,8 +62,8 @@ class ApplicationController < ActionController::Base
     @facebook_user_ = @access_token.get('/me')
     
     if @facebook_user_
-      logger.debug "got user from fb adding to cache"
-      data_cache( user['id'] ) { @facebook_user_ }
+      logger.debug "got user -> #{@facebook_user_['id']} from fb adding to cache"
+      data_cache( @facebook_user_['id'] ) { @facebook_user_ }
     else
       logger.warn "could not find user from fb" 
     end
@@ -72,7 +72,11 @@ class ApplicationController < ActionController::Base
   end
 
   
-
+  def current_user
+    return @current_user if defined?(@current_user)  && @current_user
+    @current_user = User.where( :facebook_object_id => self.facebook_user['id'] ).first
+    @current_user
+  end
 
   def init
     @access_token = nil

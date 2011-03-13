@@ -1,0 +1,12 @@
+= form_for( @bid, :as => 'post', :url => auction_bids_path, :html => {:multipart => true}) do |f|
+  = f.hidden_field :user_id
+  = f.hidden_field :auction_id
+  .offer-row
+    .offer-thumb 
+      - if @bid.auction.offering.thumb_url
+        = link_to image_tag( @bid.auction.offering.thumb_url, :border => 0 ), @bid.auction.offering
+      - else
+        = link_to image_tag( 'blank_thumb.png', :border => 0), @bid.auction.offering
+    .offer-title-col
+      %div= link_to @bid.auction.offering.name, @bid.auction.offering, :class => 'title-link'
+      %div{ :style => 'overflow-y:auto;height:80px;border: 1px solid #686868;' }= @bid.auction.offering.description

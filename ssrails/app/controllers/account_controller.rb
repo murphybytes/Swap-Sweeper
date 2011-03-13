@@ -85,7 +85,9 @@ class AccountController < ApplicationController
       logger.debug "authorization complete redirecting to #{session['redirect']}"
       redirect_to session.delete( 'redirect' )
     else
-      logger.debug "session redirect missing redireting to index"
+      logger.debug "redirecting to index"
+      #session.delete('user_id')
+      #session.delete('token_id')
       redirect_to :action => 'index'
     end
   end

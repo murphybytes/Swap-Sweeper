@@ -18,7 +18,8 @@
         &nbsp;
       %div= truncate( offering.description, :length => 100, :ommission =>  "..." )
     .offer-control-col
-      .link-button= link_to 'Bid on This', new_auction_bid_path( offering.current_auction ), :class => 'title-link-b'
+      .link-button-b= link_to 'Bid on This', new_auction_bid_path( offering.current_auction ), :class => 'title-link-b'
+      .link-button-b= link_to 'Watch This', '#', :class => 'title-link-b'
 :javascript
   $(document).ready( function() {
   fnMainMenu();
