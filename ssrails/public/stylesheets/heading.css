@@ -1,11 +1,17 @@
 div#page-heading {
-height: auto;
+    height: 20px;
+    padding:5px 5px 0 5px;
     font-family: Verdana, Geneva, sans-serif;
     font-size:14px;
+    background-color:#f4ecd9;
+    border: 1px solid #7d6340; 
+
 }
 
 div#heading-left {
 float:left;
+width:50%;
+    background-color:#f4ecd9;
 }
 
 div#heading-right {
@@ -27,3 +33,75 @@ div#page-banner {
  font-weight:500;
 }
 
+
+#menu a {
+color:black;
+font-size:14px;
+font-weight:bold;
+text-decoration:none;
+
+}
+
+#menu a:hover {
+    text-decoration:underline;
+}
+
+#menu ul {
+margin: 0;
+padding: 0;
+list-style:none;
+//display:inline;
+//width:250px;
+//height:20px;
+}
+
+#menu ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+#menu li {
+float: left;
+position:relative;
+padding-right:10px;
+//width:33%;
+}
+
+#menu li ul {
+display:none;
+position:absolute;
+top:15px;
+left:0;
+padding-top:5px;
+}
+
+#menu li:hover ul {
+display:block;
+}
+
+#menu li ul:hover {
+display:block;
+}
+
+
+
+
+#menu li ul li {
+clear:left;
+width:100%;
+border-left: 1px solid #7d6340;
+border-right: 1px solid #7d6340;
+padding:0;
+}
+
+#menu li ul li.last {
+border-bottom: 1px solid #7d6340;
+}
+
+#menu li ul li a {
+    display:block;
+    background-color:#f4ecd9;
+    font-weight:normal;
+    padding:5px;
+}

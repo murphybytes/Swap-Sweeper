@@ -1,3 +1,8 @@
+#page-banner
+  - if defined?( @page_title ) && @page_title
+    = @page_title
+  - else
+    &nbsp;
 #page-heading
   #heading-left
     - if logged_in? 
@@ -6,10 +11,4 @@
     - if logged_in?
       = "Welcome #{facebook_user['name']}"
     = link_to 'Log Out', '#', :id => 'logout', :style => 'display:none;' 
-    = link_to 'Log In', '#', :id => 'login', :style => 'display:none;'
-#page-banner
-  - if defined?( @page_title ) && @page_title
-    = @page_title
-  - else
-    &nbsp;
-  
+    = link_to 'Log In', '#', :id => 'login', :style => 'display:none;'  

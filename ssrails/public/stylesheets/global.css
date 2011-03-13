@@ -36,7 +36,7 @@ body {
 #menu {
     
 }
-
+/*
 #menu ul, #menu li {
     display: inline;
     margin: 0;
@@ -55,6 +55,7 @@ a.menu {
 a.menu:hover {
     text-decoration:underline;
 }
+*/
 
 div#global-container {
     margin-top:5px;

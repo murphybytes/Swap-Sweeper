@@ -3,7 +3,7 @@ class BidsController < ApplicationController
   
   def new
     logger.debug "new bid -> #{params.inspect}" 
-
+    @page_title = "New Bid"
   end
 
 end
