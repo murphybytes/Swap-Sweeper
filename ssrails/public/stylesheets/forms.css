@@ -22,6 +22,7 @@ div.input-vertical-label {
 div.input-label {
 float:left;
 width:30%;
+padding-right:10px;
 }
 div.input-field {
 float:left;

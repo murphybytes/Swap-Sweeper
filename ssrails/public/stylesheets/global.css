@@ -130,9 +130,7 @@ a.title-link {
  text-decoration:none;
 }
 
-a.title-link:hover {
-    text-decoration:underline;
-}
+
 
 
 a.title-link-b {
@@ -188,4 +186,10 @@ div.page-heading {
 font-size: 20px;
 font-weight:500;
 margin-bottom:10px;
+}
+
+span.title {
+ color:#484848;
+ font-weight: 600;
+ 
 }

@@ -28,8 +28,8 @@ div#page-banner {
  padding-top:10px;
  border-bottom: 1px #d8d8d8 solid;
  border-top: 1px #d8d8d8 solid;
- font-size:20px;
-
+ //font-size:20px;
+ height:20px;
  font-weight:500;
 }
 

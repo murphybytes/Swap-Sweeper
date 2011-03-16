@@ -1,14 +1,20 @@
 #page-banner
-  - if defined?( @page_title ) && @page_title
-    = @page_title
-  - else
-    &nbsp;
+  %div{ :style => 'float:left;font-size:20px;' }
+    - if defined?( @page_title ) && @page_title
+      = @page_title
+    - else
+      &nbsp;
+  %div{ :style => 'float:right;margin-right:15px;' }
+    %div{ :style => 'height:7px;' }
+      &nbsp;
+    - if logged_in?
+      = "Welcome #{facebook_user['name']}"
+    = link_to 'Log Out', '#', :id => 'logout', :style => 'display:none;' 
+    = link_to 'Log In', '#', :id => 'login', :style => 'display:none;'  
+    
 #page-heading
   #heading-left
     - if logged_in? 
       = render  'layouts/menu'
   #heading-right
-    - if logged_in?
-      = "Welcome #{facebook_user['name']}"
-    = link_to 'Log Out', '#', :id => 'logout', :style => 'display:none;' 
-    = link_to 'Log In', '#', :id => 'login', :style => 'display:none;'  
+    = link_to 'Help', '#'

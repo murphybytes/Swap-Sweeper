@@ -7,6 +7,33 @@
         = link_to image_tag( @bid.auction.offering.thumb_url, :border => 0 ), @bid.auction.offering
       - else
         = link_to image_tag( 'blank_thumb.png', :border => 0), @bid.auction.offering
-    .offer-title-col
+    .offer-title-col{ :style => 'width:420px;' }
       %div= link_to @bid.auction.offering.name, @bid.auction.offering, :class => 'title-link'
       %div{ :style => 'overflow-y:auto;height:80px;border: 1px solid #686868;' }= @bid.auction.offering.description
+  .input-row{ :style => 'padding-top:10px;height:20px;' }
+    %span.title
+      Bid Description
+  .input-row
+    .input-label
+      Include one or more items you offer in your bid. (optional)
+    .input-field
+      = select_tag 'offering', options_from_collection_for_select( Offering.by_user( current_user.id.to_s ), 'id', 'name' ), {:include_blank => true }
+  .input-row{ :style => 'height:120px;' }
+    Describe Details of Your Bid
+    %div
+      = f.text_area  :description, :cols => 70, :rows => 5
+  .input-row
+    .input-label
+      = f.label :expiry, 'Expiration Date (Optional)' 
+    .input-field
+      = f.text_field :expiry
+  .input-row
+    .input-label
+      &nbsp;
+    .input-field
+      = link_to 'Submit', '#', :class => 'link-button title-link', :id => 'new-bid-submit'
+      = link_to 'Cancel', '#', :class => 'link-button title-link', :id => 'new-bid-cancel' 
+:javascript
+  $(document).ready( function() {
+  $('#post_expiry').datepicker();
+  });

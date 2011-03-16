@@ -14,11 +14,13 @@ class Offering
   embeds_many :tags
   references_many :auctions, :stored_as => :array, :inverse_of => :offering, :dependent => :destroy
   referenced_in :user
+  referenced_in :bid
   references_many :photos, :stored_as => :array, :inverse_of => :offering, :dependent => :destroy
   
   before_create :on_create
   before_save :on_save
 
+  scope :by_user, lambda { |id| where( :user_id => id ) } 
 
   def thumb_url
     photos.each do |photo|
