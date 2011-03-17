@@ -120,6 +120,21 @@ div.offer-title-col {
 float:left;
 width:350px;
 }
+
+div.offer-title-col .row {
+clear:both;
+height:15px;
+}
+div.offer-title-col .lcol {
+    width:40%;
+    float:left;
+    color: #484848;
+}
+
+div.offer-title-col .rcol {
+    width:60%;
+    float:left;
+} 
 div.offer-control-col {
     float:left;
 }

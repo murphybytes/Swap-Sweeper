@@ -12,8 +12,14 @@
         = link_to image_tag( 'blank_thumb.png', :border => 0), offering
     .offer-title-col
       %div= link_to offering.name, offering, :class => 'title-link'
-      %div= "Posted By: #{offering.user.name}"
-      %div= "Bidding Start Date: #{format_date_time(offering.current_auction.created)}"
+      .row
+        .lcol
+          Posted By: 
+        .rcol= offering.user.name
+      .row
+        .lcol
+          Bidding Start Date:
+        .rcol= format_date_time(offering.current_auction.created)
       %div{ :style => 'border-bottom:1px #d8d8d8 solid; margin-left:15px; margin-right:35px;height:5px;margin-bottom:10px;' }
         &nbsp;
       %div= truncate( offering.description, :length => 100, :ommission =>  "..." )
