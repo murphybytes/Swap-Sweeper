@@ -19,6 +19,13 @@ class Offering
   
   before_create :on_create
   before_save :on_save
+  after_create :post_create
+  
+
+  set_callback( :destroy, :after ) do |document|
+    document.user.offering_ids.delete( document.id )
+    document.user.save!
+  end
 
   scope :by_user, lambda { |id| where( :user_id => id ) } 
 
@@ -56,6 +63,10 @@ class Offering
     self.auctions << Auction.new
   end
 
+  def post_create
+    self.user.offerings << self
+    self.user.save!
+  end
 
 
   private

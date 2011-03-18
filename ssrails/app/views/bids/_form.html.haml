@@ -25,11 +25,19 @@
     %span.title
       Bid Description
   .input-row
-    .input-label
-      Include one or more items you offer in your bid. (optional)
+    .input-label{ :style => 'width:60%;' }
+      Pick one or more of your items from drop down list to include in bid. (optional)
     .input-field
       = select_tag 'offering', options_from_collection_for_select( Offering.by_user( current_user.id.to_s ), 'id', 'name' ), {:include_blank => true }
-  .input-row{ :style => 'height:120px;' }
+  #bid-offering-area    
+    %span.title
+      My Items Included in Bid 
+    - current_user.offerings.each do |offering|
+      .bid-offering-row{ :class => offering.id.to_s }
+        .bid-offering-lcol= offering.name
+        .bid-offering-rcol= link_to 'Remove', '#', :class => 'remove-button' 
+          
+  .input-row{ :style => 'height:120px;padding-top:10px;margin-top:5px;border-top: 1px solid #d8d8d8;' }
     Describe Details of Your Bid
     %div
       = f.text_area  :description, :cols => 70, :rows => 5
@@ -42,8 +50,8 @@
     .input-label
       &nbsp;
     .input-field
-      = link_to 'Submit', '#', :class => 'link-button title-link', :id => 'new-bid-submit'
-      = link_to 'Cancel', '#', :class => 'link-button title-link', :id => 'new-bid-cancel' 
+      = link_to 'Submit', '#',  :id => 'new-bid-submit'
+      = link_to 'Cancel', '#',  :id => 'new-bid-cancel' 
 :javascript
   $(document).ready( function() {
   fn_initialize_bids();

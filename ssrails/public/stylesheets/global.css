@@ -154,6 +154,12 @@ a.title-link-b {
  text-decoration:none;
 }
 
+.title {
+color:#484848;
+font-weight:600;
+font-size:15px;
+}
+
 .link-button {
  background-image: url('../images/linkgrad.png');
  background-repeat: repeat-x;

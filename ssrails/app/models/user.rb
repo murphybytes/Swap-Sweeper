@@ -8,7 +8,7 @@ class User
   field :account_black_balled, :type => Boolean, :default => false
   field :name, :type => String
   embeds_one :session
-  before_create :on_create
+
   validates_uniqueness_of :facebook_object_id
   references_many :offerings, :stored_as => :array, :inverse_of => :user
   references_many :bids, :stored_as => :array, :inverse_of => :user
@@ -20,9 +20,9 @@ class User
     end
   end
 
-  def on_create
-    self.created = DateTime.now
-  end
 
+  set_callback( :create, :before ) do |document|
+    document.created = DateTime.now
+  end
   
 end
