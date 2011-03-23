@@ -8,17 +8,21 @@ class Bid
   field :updated, :type => DateTime
   field :expiry, :type => DateTime
   referenced_in :user
-  references_many :offerings, :stored_as => :array, :inverse_of => :bid
+  references_many :offerings, :stored_as => :array,  :inverse_of => :bid
   embedded_in :auction, :inverse_of => :bids
-  before_create :on_create
-  before_save :on_save
-
-  def on_create
-    created = DateTime.now
-    updated = DateTime.now
+  
+  set_callback( :create, :before ) do |document|
+    document.created = DateTime.now
+    document.updated = DateTime.now
+  end
+  
+  set_callback( :save, :before ) do |document|
+    document.updated = DateTime.now
   end
 
-  def on_save
-    updated = DateTime.now
+  set_callback( :initialize, :after ) do |document|
+    document.user = User.find( document.user_id ) if document.user_id
+    document.auction = Auction.find( document.auction.id ) if document.auction
   end
+
 end

@@ -7,7 +7,7 @@ class Tag
   validates_presence_of :name
   validates_presence_of :classifier
 
-  embedded_in :taggable, :inverse_of => :tag
+  embedded_in :taggable, :inverse_of => :tags
   
   def capitalize_name
     self.name.upcase!

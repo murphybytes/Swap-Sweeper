@@ -2,9 +2,10 @@ class OfferingsController < ApplicationController
   before_filter :check_for_access_token
 
   def new
+    
     logger.debug "creating a new offering for"
     @user = User.where( :facebook_object_id => facebook_user['id'] ).first
-    @offering = Offering.new( :facebook_user_id => facebook_user['id'], :user => @user )    
+    @offering = Offering.new( :facebook_user_id => facebook_user['id'], :user_id => @user.id.to_s )    
     
   end
   
@@ -58,7 +59,7 @@ class OfferingsController < ApplicationController
 
       redirect_to offerings_path and return
    rescue
-      logger.warn "Create offering failed for user #{user['id']} error #{ $! }"
+      logger.warn "Create offering failed  error #{ $! }"
       flash[:error] = $!
    end
   end

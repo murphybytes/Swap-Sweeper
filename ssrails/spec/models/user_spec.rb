@@ -8,6 +8,6 @@ describe User do
   it "should have account creation time" do
     before_create = DateTime.now
     u = User.create_from_facebook_user( {'id' => 2}  )
-    u.account_created.second.should >= before_create.second
+    u.created.second.should >= before_create.second
   end
 end

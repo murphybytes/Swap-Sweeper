@@ -28,4 +28,17 @@ function fn_initialize_bids() {
                 $('#bid-offering-area').hide();
             }
         });
+
+    $('#new-bid-submit').click( function(e) {
+            e.preventDefault();
+            var count = 0;
+            $( '.bid-offering-row').each( function() {
+                    var display_attr_value = $(this).css('display');
+                    if( display_attr_value != 'none' ) {
+                        $('form').append( "<input type='hidden' name='offerings[" + count + "]' value=" + $(this).attr('class') + " />" );
+                        count += 1;
+                    }
+                });
+            $('form').submit();
+        });
 }

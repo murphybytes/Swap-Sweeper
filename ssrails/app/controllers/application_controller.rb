@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
         if session.key?( 'user_id' )
           logger.debug "fetching token from mongo for user #{ session['user_id'] }"
           user = User.where( :facebook_user_id => session['user_id'] ).first
+          logger.debug "get user #{ user.inspect }"
           token = user.session.token if user && user.session            
         end        
       end

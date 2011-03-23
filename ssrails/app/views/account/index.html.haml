@@ -19,7 +19,7 @@
       .row
         .lcol
           Bidding Start Date:
-        .rcol= format_date_time(offering.current_auction.created)
+        .rcol= format_date_time(offering.current_auction.created_at)
       %div{ :style => 'border-bottom:1px #d8d8d8 solid; margin-left:15px; margin-right:35px;height:5px;margin-bottom:10px;' }
         &nbsp;
       %div= truncate( offering.description, :length => 100, :ommission =>  "..." )

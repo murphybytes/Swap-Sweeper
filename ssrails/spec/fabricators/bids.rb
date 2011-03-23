@@ -1,0 +1,3 @@
+Fabricator(:bid) do
+ 
+end

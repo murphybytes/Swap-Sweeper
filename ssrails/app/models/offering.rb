@@ -1,9 +1,7 @@
 
 class Offering
   include Mongoid::Document
-
-  field :created, :type => DateTime
-  field :updated, :type => DateTime
+  include Mongoid::Timestamps
 
   field :facebook_user_id, :type => Integer
   field :active, :type => Boolean, :default => true
@@ -12,19 +10,20 @@ class Offering
   field :name, :type => String, :default => ""  
 
   embeds_many :tags
-  references_many :auctions, :stored_as => :array, :inverse_of => :offering, :dependent => :destroy
+  references_many :auctions, :stored_as => :array, :inverse_of => 'offering',  :dependent => :destroy
   referenced_in :user
   referenced_in :bid
-  references_many :photos, :stored_as => :array, :inverse_of => :offering, :dependent => :destroy
-  
-  before_create :on_create
-  before_save :on_save
-  after_create :post_create
+  references_many :photos,  :stored_as => :array, :inverse_of => 'offering', :dependent => :destroy
   
 
   set_callback( :destroy, :after ) do |document|
     document.user.offering_ids.delete( document.id )
     document.user.save!
+  end
+
+  set_callback( :create, :after ) do |doc|
+    doc.auctions.create
+    
   end
 
   scope :by_user, lambda { |id| where( :user_id => id ) } 
@@ -53,20 +52,8 @@ class Offering
     nil
   end
 
-  def on_save
-    self.updated = DateTime.now
-  end
 
-  def on_create
-    self.created = DateTime.now
-    self.updated = DateTime.now
-    self.auctions << Auction.new
-  end
 
-  def post_create
-    self.user.offerings << self
-    self.user.save!
-  end
 
 
   private
