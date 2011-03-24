@@ -19,4 +19,9 @@ describe Offering do
     offering = Fabricate(:offering )
     offering.auctions[0].offering.should === offering
   end
+
+  it "should be owned by a user" do
+    offering = Fabricate(:offering)
+    offering.user.offerings.size.should > 1
+  end
 end

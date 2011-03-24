@@ -22,8 +22,10 @@ class Offering
   end
 
   set_callback( :create, :after ) do |doc|
+ 
     doc.auctions.create
-    
+    doc.user.offerings << doc
+    doc.user.save!
   end
 
   scope :by_user, lambda { |id| where( :user_id => id ) } 

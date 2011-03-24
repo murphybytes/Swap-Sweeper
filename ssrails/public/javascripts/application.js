@@ -22,11 +22,7 @@ function fnOnLoginStatusChanged( action_name ) {
 }
 
 function fnOnFBSessionStatus(session) {
-    if( session ) {
-        $('a#logout').show();
-    } else {
-        $('a#login').show();    
-    }
+
     
     // set up event handlers for login/logout links
     // note that visibility of these links is 

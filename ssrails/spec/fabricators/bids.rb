@@ -1,3 +1,0 @@
-Fabricator(:bid) do
- 
-end

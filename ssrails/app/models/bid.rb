@@ -22,7 +22,7 @@ class Bid
 
   set_callback( :initialize, :after ) do |document|
     document.user = User.find( document.user_id ) if document.user_id
-    document.auction = Auction.find( document.auction.id ) if document.auction
+    #document.auction = Auction.find( document.auction_id ) if document.auction_id
   end
 
 end

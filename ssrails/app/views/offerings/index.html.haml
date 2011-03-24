@@ -7,7 +7,7 @@
         = link_to image_tag( 'blank_thumb.png', :border => 0), offer
     .offer-title-col
       %div= link_to offer.name, offer, :class => 'title-link'
-      %div= "Created #{format_date(offer.created)}"
+      %div= "Created #{format_date(offer.created_at)}"
       - if offer.current_auction
         %div= "Bids: #{ offer.current_auction.bids.size }"
       - else

@@ -16,7 +16,7 @@
       .row
         .lcol
           Bidding Start Date:
-        .rcol=format_date_time(@bid.auction.offering.current_auction.created)
+        .rcol=format_date_time(@bid.auction.offering.current_auction.created_at)
       %div{ :style => 'border-bottom:1px #d8d8d8 solid; margin-left:15px; margin-right:35px;height:5px;margin-bottom:10px;' }
         &nbsp;
       %div= truncate( @bid.auction.offering.description, :length => 100, :ommission => " ..." )
@@ -26,7 +26,7 @@
       Bid Description
   .input-row
     .input-label{ :style => 'width:60%;' }
-      Pick one or more of your items from drop down list to include in bid. (optional)
+      You may pick one or more of your items from drop down list to exchange for this.
     .input-field
       = select_tag 'offering', options_from_collection_for_select( Offering.by_user( current_user.id.to_s ), 'id', 'name' ), {:include_blank => true }
   #bid-offering-area    

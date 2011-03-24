@@ -9,8 +9,9 @@
       &nbsp;
     - if logged_in?
       = "Welcome #{facebook_user['name']}"
-    = link_to 'Log Out', '#', :id => 'logout', :style => 'display:none;' 
-    = link_to 'Log In', '#', :id => 'login', :style => 'display:none;'  
+      = link_to 'Log Out', '#', :id => 'logout' 
+    - else
+      = link_to 'Log In', '#', :id => 'login'  
     
 #page-heading
   #heading-left
