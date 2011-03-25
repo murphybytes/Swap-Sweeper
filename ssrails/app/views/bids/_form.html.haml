@@ -1,6 +1,6 @@
 = form_for( @bid, :as => 'post', :url => auction_bids_path, :html => {:multipart => true} ) do |f|
   = f.hidden_field :user_id
-  = f.hidden_field :auction_id
+  = hidden_field_tag :auction, @bid.auction.id
   .offer-row
     .offer-thumb 
       - if @bid.auction.offering.thumb_url

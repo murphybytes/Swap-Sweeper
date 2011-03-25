@@ -50,7 +50,7 @@ class OfferingsController < ApplicationController
           offering.photos << photo
         end
       end
-      debugger
+     
       offering.descriptive_tags = params[:descriptive_tags]
       offering.ask_tags = params[:ask_tags]
       offering.save!
