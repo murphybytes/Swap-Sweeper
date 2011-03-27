@@ -12,6 +12,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 User.delete_all
 Auction.delete_all
 Offering.delete_all
+Bid.delete_all
 
 RSpec.configure do |config|
   # == Mock Framework

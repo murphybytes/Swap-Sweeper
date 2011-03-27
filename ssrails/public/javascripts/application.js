@@ -5,7 +5,10 @@ function fnMainMenu() {
 
 }
 
-
+function fnAccountIndex() {
+    $('#bid-on-this').button( { icons : { primary : 'ui-icon-gear' }} );
+    $('#watch-this').button( { icons : { primary : 'ui-icon-gear' }} );
+}
 
 function fnOnLoginStatusChanged( action_name ) {
     var action = null;

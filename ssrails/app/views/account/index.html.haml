@@ -20,15 +20,20 @@
         .lcol
           Bidding Start Date:
         .rcol= format_date_time(offering.current_auction.created_at)
+      .row
+        .lcol
+          Bids:
+        .rcol= offering.current_auction.bids.size        
       %div{ :style => 'border-bottom:1px #d8d8d8 solid; margin-left:15px; margin-right:35px;height:5px;margin-bottom:10px;' }
         &nbsp;
       %div= truncate( offering.description, :length => 100, :ommission =>  "..." )
     .offer-control-col
-      .link-button-b= link_to 'Bid on This', new_auction_bid_path( offering.current_auction ), :class => 'title-link-b'
-      .link-button-b= link_to 'Watch This', '#', :class => 'title-link-b'
+      %div= link_to 'Bid on This', new_auction_bid_path( offering.current_auction ), :id => 'bid-on-this'
+      %div{ :style => 'padding-top:5px;' }= link_to 'Watch This', '#', :id => 'watch-this'
 :javascript
   $(document).ready( function() {
   fnMainMenu();
+  fnAccountIndex();
   });
 
   

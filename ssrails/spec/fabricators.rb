@@ -2,7 +2,7 @@
 
 
 Fabricator(:user) do
-  facebook_object_id Fabricate.sequence(:object_id) {|i| i + rand(10000) }
+  facebook_object_id {Fabricate.sequence(:number ) }
   name Fabricate.sequence(:name) { |i| "name #{i}" }
 end
 

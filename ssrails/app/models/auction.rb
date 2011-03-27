@@ -7,8 +7,7 @@ class Auction
 
   validates_presence_of( :offering_id )
 
-  embeds_many :bids
-  embeds_many :asks
-
+  references_many :bids, :stored_as => :array, :inverse_of => :auction
+  references_many :asks, :stored_as => :array, :inverse_of => :auction
 
 end
