@@ -23,7 +23,9 @@ class Offering
 
   set_callback( :create, :after ) do |doc|
  
-    doc.auctions.create
+    auction = doc.auctions.create
+    auction.offering = doc
+    auction.save!
     doc.user.offerings << doc
     doc.user.save!
   end

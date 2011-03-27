@@ -1,25 +1,25 @@
 = form_for( @bid, :as => 'post', :url => auction_bids_path, :html => {:multipart => true} ) do |f|
   = f.hidden_field :user_id
-  = hidden_field_tag :auction, @bid.auction.id
+  = f.hidden_field :auction_id
   .offer-row
     .offer-thumb 
-      - if @bid.auction.offering.thumb_url
-        = link_to image_tag( @bid.auction.offering.thumb_url, :border => 0 ), @bid.auction.offering, :target => '_blank'
+      - if @auction.offering.thumb_url
+        = link_to image_tag( @auction.offering.thumb_url, :border => 0 ), @auction.offering, :target => '_blank'
       - else
-        = link_to image_tag( 'blank_thumb.png', :border => 0), @bid.auction.offering, :target => '_blank'
+        = link_to image_tag( 'blank_thumb.png', :border => 0), @auction.offering, :target => '_blank'
     .offer-title-col
-      %div= link_to @bid.auction.offering.name, @bid.auction.offering, {:class => 'title-link', :target => '_blank' }
+      %div= link_to @auction.offering.name, @auction.offering, {:class => 'title-link', :target => '_blank' }
       .row
         .lcol
           Posted By:
-        .rcol= @bid.auction.offering.user.name
+        .rcol= @auction.offering.user.name
       .row
         .lcol
           Bidding Start Date:
-        .rcol=format_date_time(@bid.auction.offering.current_auction.created_at)
+        .rcol=format_date_time(@auction.offering.current_auction.created_at)
       %div{ :style => 'border-bottom:1px #d8d8d8 solid; margin-left:15px; margin-right:35px;height:5px;margin-bottom:10px;' }
         &nbsp;
-      %div= truncate( @bid.auction.offering.description, :length => 100, :ommission => " ..." )
+      %div= truncate( @auction.offering.description, :length => 100, :ommission => " ..." )
 
   .input-row{ :style => 'padding-top:10px;height:20px;' }
     %span.title
