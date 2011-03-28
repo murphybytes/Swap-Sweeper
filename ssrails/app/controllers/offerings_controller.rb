@@ -54,8 +54,13 @@ class OfferingsController < ApplicationController
       offering.descriptive_tags = params[:descriptive_tags]
       offering.ask_tags = params[:ask_tags]
       offering.save!
-      
-      @access_token.post( '/me/links', generate_fb_update_params( offering ) )
+
+      # TODO: make this optional
+      begin
+        @access_token.post( '/me/links', generate_fb_update_params( offering ) )
+      rescue
+        logger.warn "Attempt to update facebook news feed failed with #{ $! }" 
+      end
 
       redirect_to offerings_path and return
    rescue

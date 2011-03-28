@@ -1,3 +1,5 @@
+- unless current_user.messages.empty?
+  .message-bar= link_to "You have #{ current_user.messages.size } unread messages.", "#" 
 
 - if @friends_offerings.empty?
   %div
@@ -32,7 +34,6 @@
       %div{ :style => 'padding-top:5px;' }= link_to 'Watch This', '#', :id => 'watch-this'
 :javascript
   $(document).ready( function() {
-  fnMainMenu();
   fnAccountIndex();
   });
 

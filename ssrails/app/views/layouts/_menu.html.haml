@@ -6,4 +6,8 @@
       %ul
         %li= link_to 'New Item', new_offering_path, :class => 'menu'
         %li{:class => 'last' }= link_to 'Listed Items', offerings_path, :class => 'menu'
-    %li= link_to 'Bids & Offers', '#', :class => 'menu'    
+    %li
+      = link_to 'Bids & Offers', '#', :class => 'menu' 
+      %ul
+        %li= link_to 'Bids I made', bids_offered_path, :class => 'menu'
+        %li{:class => 'last' }= link_to 'Bids I received', bids_received_path, :class => 'menu'

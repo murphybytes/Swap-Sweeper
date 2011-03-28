@@ -6,6 +6,7 @@ describe Bid do
     offering = Fabricate(:offering)
     bid = Bid.create!( :auction => offering.current_auction, :user => Fabricate(:user) )
     offering.current_auction.bids.size.should == 1 
+    offering.user.messages.size.should == 1
   end
 
   it "should correctly handle mm/dd/yyyy date format" do
@@ -15,14 +16,21 @@ describe Bid do
     bid.expiry.should == DateTime.strptime( "03/23/2011", "%m/%d/%Y" ) 
   end
 
-  it "should generate a message when it is created" do 
+  it "should generate a message when it is created" do
+
     offering = Fabricate(:offering)
     user = Fabricate( :user )
     
     bid = Bid.create!(:auction => offering.current_auction, :user => user, :expiry => DateTime.strptime("12/01/2012", "%m/%d/%Y" ))
-
-    user.messages.size.should == 1
+    # message goes to the person recieving the bid
+    offering.user.messages.size.should == 2
   end
   
+  it "should associate a message with the current auction" do
+    offering = Fabricate(:offering)
+    user = Fabricate(:user)
+    bid = Bid.create!(:auction => offering.current_auction, :user => user )
+    offering.user.messages.size.should == 3
+  end
 
 end

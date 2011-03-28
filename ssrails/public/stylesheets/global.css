@@ -31,7 +31,28 @@ body {
     font-size:12px;
 }
 
+div.message-bar {
+border: #c7e0e0 1px solid;
+-moz-border-radius: 3px;
+border-radius: 3px;
+padding-left:10px;
+padding-right:10px;
+padding-top:5px;
+padding-bottom:5px;
 
+}
+
+
+div.message-bar a {
+    text-decoration:none;
+    color:#484848;
+    font-weight:bold;
+    
+}
+
+div.message-bar a:hover {
+    text-decoration:underline;
+}
 
 #menu {
     
@@ -174,6 +195,8 @@ font-size:15px;
  display: inline;
  opacity:.8
 }
+
+
 
 
 

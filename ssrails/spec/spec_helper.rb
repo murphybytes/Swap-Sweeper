@@ -13,7 +13,8 @@ User.delete_all
 Auction.delete_all
 Offering.delete_all
 Bid.delete_all
-
+Message.delete_all
+BidMessage.delete_all
 RSpec.configure do |config|
   # == Mock Framework
   #

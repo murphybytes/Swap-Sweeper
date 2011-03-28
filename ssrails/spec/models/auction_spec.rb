@@ -6,4 +6,6 @@ describe Auction do
     auction = offering.auctions[0]
     auction.created_at.should_not == nil
   end
+  
+  
 end

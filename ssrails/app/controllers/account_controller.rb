@@ -21,6 +21,23 @@ class AccountController < ApplicationController
     
   end
 
+
+  def bids_received
+    @bids = []
+    Offering.where( :user_id => current_user.id.to_s ).each do | offer |
+      if offer.current_auction
+        offer.current_auction.bids do | bid |
+          @bids << bid
+        end
+      end
+    end
+    
+  end
+
+  def bids_offered
+    @bids = Bid.where( :user_id => current_user.id.to_s )
+  end
+
   def offers
     
   end
