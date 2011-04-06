@@ -1,0 +1,4 @@
+- messages = Message.where( :user_id => current_user.id.to_s ).asc(:read)
+- messages.each do |message|
+  - if message.class == BidMessage
+    = render :partial => 'bid_message', :locals => { :message => message }  

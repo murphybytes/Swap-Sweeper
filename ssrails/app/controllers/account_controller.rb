@@ -13,6 +13,15 @@ class AccountController < ApplicationController
     end    
   end
 
+  def picture
+    user = User.find(params[:id] )
+    logger.debug "found #{ user.name } "
+    url = "http://graph.facebook.com/#{user.facebook_object_id}/picture"
+    logger.debug "called profile picture #{ url }"
+    
+    redirect_to url
+  end
+
   ######################
   #  TODO: Send an invitation
   #  to friends to join swapsweep

@@ -1,0 +1,47 @@
+
+
+div.message { 
+    padding: 10px;
+    clear:both;
+    height:70px;
+}
+
+div.read {
+    color:#898989;
+}
+
+div.unread {
+    color:#484848;
+}
+
+div.profile-picture {
+    float:left;
+    60px;
+}
+
+div.message-content {
+float:left;
+width:400px;
+height:auto;
+padding-left:10px;
+
+}
+
+div.message-controls {
+float:left;
+width:200px;
+
+}
+
+a.button {
+width:150px;
+}
+
+div.button {
+padding:3px;
+}
+
+.subject {
+    font-size:14px;
+    font-weight:bold;
+}

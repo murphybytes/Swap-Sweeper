@@ -1,0 +1,16 @@
+.message{ :class => message.read ? 'read' : 'unread' }
+  .profile-picture
+    = image_tag profile_picture_url( message.bid.user.id.to_s )
+  .message-content
+    .subject= "#{message.subject} from #{message.bid.user.name}"
+    %div= "Sent #{ format_date_time( message.created_at ) }"
+    %div= truncate( message.body, :length => 70 )
+  .message-controls
+    .button= link_to 'Show Bid', '#', :id => 'show-bid', :class => 'button'
+    .button= link_to 'Delete Message', '#', :id => 'delete-message', :class => 'button'
+:javascript
+  $(document).ready( function() {
+    $('#show-bid').button( { icons : { primary : 'ui-icon-document' }} );
+    $('#delete-message').button( { icons : { primary : 'ui-icon-trash' }} );
+  });
+    

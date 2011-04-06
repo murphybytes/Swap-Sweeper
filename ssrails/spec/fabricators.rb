@@ -16,3 +16,9 @@ end
 Fabricator(:bid) do
  
 end
+
+
+Fabricator(:bid_message) do
+  user Fabricate(:user)
+  read false
+end

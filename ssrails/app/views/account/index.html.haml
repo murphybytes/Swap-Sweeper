@@ -1,5 +1,5 @@
 - unless current_user.messages.empty?
-  .message-bar= link_to "You have #{ current_user.messages.size } unread messages.", "#" 
+  .message-bar= link_to "You have #{ current_user.messages.size } unread messages.", messages_path 
 
 - if @friends_offerings.empty?
   %div

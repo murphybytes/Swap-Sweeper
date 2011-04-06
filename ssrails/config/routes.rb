@@ -15,15 +15,18 @@ Ssrails::Application.routes.draw do
   match 'account/login' => 'account#login', :as => :account_login
   match 'account/bids/received' => 'account#bids_received', :as => :bids_received
   match 'account/bids/offered' => 'account#bids_offered', :as => :bids_offered
+  match 'account/:id/picture' => 'account#picture', :as => :profile_picture
   match 'invite' => 'account#invite', :as => :invite
   match 'auctions/:id/bid' => 'auctions#bid', :as => :bid
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :offerings
   resources :photos
+  resources :messages
   resources :auctions do
     resources :bids
   end
+
 
   # Sample resource route with options:
   #   resources :products do
