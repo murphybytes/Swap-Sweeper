@@ -6,7 +6,7 @@
     %div= "Sent #{ format_date_time( message.created_at ) }"
     %div= truncate( message.body, :length => 70 )
   .message-controls
-    .button= link_to 'Show Bid', '#', :id => 'show-bid', :class => 'button'
+    .button= link_to 'Show Bid', auction_bid_path(message.bid.auction.id, message.bid.id), :id => 'show-bid', :class => 'button'
     .button= link_to 'Delete Message', '#', :id => 'delete-message', :class => 'button'
 :javascript
   $(document).ready( function() {

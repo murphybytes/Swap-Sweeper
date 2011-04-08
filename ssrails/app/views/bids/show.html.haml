@@ -1,0 +1,55 @@
+.display-row.row-height-medium.display-border-bottom
+  .display-col-a
+    %span.title
+      = link_to "Auction Item: #{ @bid.auction.offering.name }", @bid.auction.offering, {:class => 'title-link', :target => '_blank' }
+  .display-col-a
+    &nbsp;
+.display-row.row-height-narrow
+  .display-col-e
+    Bidder:
+  .display-col-b= @bid.user.name
+  .display-col-b
+    &nbsp;
+.display-row.row-height-narrow
+  .display-col-e
+    Bid Date:
+  .display-col-b= format_date_time( @bid.created_at )
+  .display-col-b
+    &nbsp;
+%div{ :style => 'padding: 5px; 10px;' }
+  %span.title{ :style => 'font-size:14;' }
+    Bid Description
+  %div{ :style => 'padding: 5px 0;' }= @bid.description
+- unless @bid.offerings.empty?
+  %div{ :style => 'padding: 5px; 10px;' }
+    %span.title{ :style => 'font-size:14;' }
+      Included in Bid
+    - @bid.offerings.each do |offer|
+      .offer-row
+        .offer-thumb
+          - if offer.thumb_url
+            = link_to image_tag( offer.thumb_url, :border => 0), offer, :target => '_blank'
+          - else
+            = link_to image_tag( 'blank_thumb.png', :border => 0 ), offer, :target => '_blank'
+        .offer-title-col{ :style => 'width:70%;' }
+          %div= link_to offer.name, offer, {:class => 'title-link', :target => '_blank' }
+          .row
+            .lcol{ :style => 'width:20%;' }
+              Offer Date: 
+            .rcol= format_date_time( offer.created_at )
+          .row
+            .lcol{ :style => 'width:20%;' }
+              Description:
+            .rcol= truncate( offer.description, :length => 180 )
+        
+.display-row.display-border-bottom{ :style => 'height:35px;' }
+  .display-col-b
+    = link_to 'Accept Bid', '#', {:id => 'accept-bid', :style => 'width:180px;' }
+  .display-col-b
+    = link_to 'Make Counter Offer', '#', {:id => 'make-counter-offer', :style => 'width:180px;' }
+
+:javascript
+  $(document).ready( function() {
+    $('#accept-bid').button( { icons : { primary : 'ui-icon-gear' }} );
+    $('#make-counter-offer').button( { icons : { primary : 'ui-icon-gear' }} );
+  });

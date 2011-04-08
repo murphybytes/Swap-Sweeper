@@ -28,5 +28,14 @@ class BidsController < ApplicationController
     redirect_to '/' and return
   end
 
+  def show
+    logger.debug "show bid #{ params.inspect }"
+    @page_title = "Bid Description"
+    @bid = Bid.find( params[:id] )
+  end
+
+  def accept
+    # todo: acceptbidmessage
+  end
 
 end

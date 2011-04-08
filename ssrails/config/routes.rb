@@ -18,6 +18,7 @@ Ssrails::Application.routes.draw do
   match 'account/:id/picture' => 'account#picture', :as => :profile_picture
   match 'invite' => 'account#invite', :as => :invite
   match 'auctions/:id/bid' => 'auctions#bid', :as => :bid
+  match 'bids/:id/accept' => 'bids#accept', :as => :accept_bid
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :offerings
