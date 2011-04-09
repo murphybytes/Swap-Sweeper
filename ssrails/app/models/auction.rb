@@ -2,13 +2,14 @@ class Auction
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  referenced_in :offering
   field :open, :type => Boolean, :default => true
 
   validates_presence_of( :offering_id )
 
-  references_many :bids, :stored_as => :array, :inverse_of => :auction
-  references_many :bid_messages, :stored_as => :array, :inverse_of => :auction
-  references_many :asks, :stored_as => :array, :inverse_of => :auction
+  belongs_to :offering
+  has_many :bids
+  has_many :bid_messages
+  has_many :asks
+
 
 end

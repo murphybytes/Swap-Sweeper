@@ -1,7 +1,7 @@
 class Photo
   include Mongoid::Document
   mount_uploader :image, PhotoUploader
-  referenced_in :offering, :inverse_of => :photos
+  belongs_to :offering
   field :primary, :type => Boolean, :default => false
   field :name, :type => String
   after_destroy :destroy_photo

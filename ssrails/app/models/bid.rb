@@ -8,28 +8,19 @@ class Bid
   field :winner, :type => Boolean, :default => false
   field :description, :type => String
   field :expiry, :type => DateTime
-  referenced_in :user
-  references_many :offerings, :stored_as => :array,  :inverse_of => :bid
-  referenced_in :auction, :inverse_of => :bids
+
+  belongs_to :bidder, :class_name => 'User'
+  belongs_to :auction
+  belongs_to :offering
+
   references_one :bid_message
 
-
-  set_callback( :create, :after ) do |document|
-    
-    if self.user && self.auction  
-
-      self.user.bids << document
-      self.auction.offering.user.messages << BidMessage.create!( :user => self.auction.offering.user, 
-                                                                 :subject => "New Bid", :bid => document,  
-                                                                 :body => "You received a new bid on '#{ self.auction.offering.name }'" ) 
-      self.auction.offering.user.save!
-
-      self.user.save!
-      self.auction.bids << document
-      self.auction.save!
-      
+  def generate_bid_message
+    if self.auction && self.bidder
+      self.bid_message = BidMessage.create( :receiver => self.auction.offering.user,
+                                            :sender => self.bidder,
+                                            :bid => self,
+                                            :body => "You received a new bid on '#{ self.auction.offering.name }'" )      
     end
   end
-
-
 end

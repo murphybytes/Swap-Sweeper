@@ -10,10 +10,11 @@ class Offering
   field :name, :type => String, :default => ""  
 
   embeds_many :tags
-  references_many :auctions, :stored_as => :array, :inverse_of => 'offering',  :dependent => :destroy
+  has_many :auctions
+  has_many :bids
+
   referenced_in :user
-  referenced_in :bid
-  references_many :photos,  :stored_as => :array, :inverse_of => 'offering', :dependent => :destroy
+  has_many :photos
   
 
   set_callback( :destroy, :after ) do |document|
@@ -21,13 +22,10 @@ class Offering
     document.user.save!
   end
 
+  # set up a default auction
   set_callback( :create, :after ) do |doc|
- 
-    auction = doc.auctions.create
-    auction.offering = doc
-    auction.save!
-    doc.user.offerings << doc
-    doc.user.save!
+    doc.auctions.create
+
   end
 
   scope :by_user, lambda { |id| where( :user_id => id ) } 
