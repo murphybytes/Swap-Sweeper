@@ -1,0 +1,5 @@
+screen -t emacs emacs -nw .
+screen -t console rails console
+screen -t log tail -f log/development.log
+screen -t shell 
+screen -t server rails server

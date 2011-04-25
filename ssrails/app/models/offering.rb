@@ -15,10 +15,9 @@ class Offering
 
   referenced_in :user
   has_many :photos
-  
 
   set_callback( :destroy, :after ) do |document|
-    document.user.offering_ids.delete( document.id )
+    document.user.offerings.delete( document.id )
     document.user.save!
   end
 

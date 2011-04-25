@@ -32,22 +32,15 @@ class OfferingsController < ApplicationController
   def create 
     begin
       logger.debug "OFFERING CREATE param #{ params.inspect }"
-      offering = Offering.new( params[:offering],  )
+      offering = Offering.create!( params[:offering]  )
+
       if params.key?(:primary_photo)
-        photo = Photo.new
-        photo.image = params[:primary_photo]
-        photo.primary = true
-        photo.save!
-        offering.photos << photo
+       offering.photos.create!( image: params[:primary_photo], primary: true )
       end
 
       if params.key?(:photos )
         params[:photos].each do | photo_key, multipart_file |
-          photo = Photo.new
-          photo.image = multipart_file
-          photo.primary = false
-          photo.save!
-          offering.photos << photo
+          offering.photos.create!( image: multipart_file, primary: false )
         end
       end
      

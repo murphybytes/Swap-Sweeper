@@ -15,7 +15,7 @@
     .input-label
       &nbsp;
     .input-field
-      = link_to image_tag( 'add_more_photos.png', :border => 0), '#', :id => 'new-offer-add-photo'    
+      = link_to 'Add More Photos', '#', :id => 'new-offer-add-photo'    
   #add-photo-input{ :style => 'display:none;' }
     &nbsp;
   .input-area
@@ -38,8 +38,8 @@
     .input-label
       &nbsp;
     .input-field
-      = image_submit_tag 'submit.png'
-      = link_to image_tag( 'cancel.png', :border => 0), '/'
+      = submit_tag 'Submit', :id => 'submit-button'
+      = link_to 'Cancel', '/', :id => 'cancel-button' 
 :javascript
   $(document).ready( function() {
     fnOfferingForm();  
