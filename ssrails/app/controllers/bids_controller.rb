@@ -23,7 +23,6 @@ class BidsController < ApplicationController
         bid.offerings << Offering.find( offer_id ) 
       end
     end
-    bid.save!
 
     redirect_to '/' and return
   end

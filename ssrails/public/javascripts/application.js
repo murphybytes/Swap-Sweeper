@@ -1,8 +1,8 @@
 
 
 function fnAccountIndex() {
-    $('#bid-on-this').button( { icons : { primary : 'ui-icon-gear' }} );
-    $('#watch-this').button( { icons : { primary : 'ui-icon-gear' }} );
+    $('.bid-button').button( { icons : { primary : 'ui-icon-gear' }} );
+    $('.watch-button').button( { icons : { primary : 'ui-icon-gear' }} );
 }
 
 function fnOnLoginStatusChanged( action_name ) {

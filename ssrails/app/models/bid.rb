@@ -11,7 +11,11 @@ class Bid
 
   belongs_to :bidder, :class_name => 'User'
   belongs_to :auction
-  belongs_to :offering
+  #################################################################
+  # these offerings may be included by bidder as part of the bid
+  # they are not the parent offering of the auction
+  ################################################################
+  has_and_belongs_to_many :offerings
 
   references_one :bid_message
 

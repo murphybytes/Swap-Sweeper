@@ -11,7 +11,12 @@ class Offering
 
   embeds_many :tags
   has_many :auctions
-  has_many :bids
+  ##################################
+  # used to include offering as
+  # part of a bid, bids on this offering
+  # are referenced through auctions
+  ##################################
+  has_and_belongs_to_many :bids
 
   referenced_in :user
   has_many :photos

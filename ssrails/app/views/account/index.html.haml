@@ -30,8 +30,8 @@
         &nbsp;
       %div= truncate( offering.description, :length => 100, :ommission =>  "..." )
     .offer-control-col
-      %div= link_to 'Bid on This', new_auction_bid_path( offering.current_auction ), :id => 'bid-on-this'
-      %div{ :style => 'padding-top:5px;' }= link_to 'Watch This', '#', :id => 'watch-this'
+      %div= link_to 'Bid on This', new_auction_bid_path( offering.current_auction ), :id => 'bid-on-this', :class => 'bid-button'
+      %div{ :style => 'padding-top:5px;' }= link_to 'Watch This', '#', :id => 'watch-this', :class => 'watch-button'
 :javascript
   $(document).ready( function() {
   fnAccountIndex();
