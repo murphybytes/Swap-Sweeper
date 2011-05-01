@@ -23,6 +23,9 @@ class User
     end
   end
 
+  def unread_messages    
+    @unread ||= Message.where( read: false ).and( receiver_id: self.id ).desc( :created_at ) 
+  end
 
   set_callback( :create, :before ) do |document|
     document.created = DateTime.now

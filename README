@@ -1,1 +1,55 @@
-test
+----------------------------------------------------------------------
+Swap Sweeper 
+----------------------------------------------------------------------
+
+0. Overview
+
+1. Requirements and Dependencies
+
+2. Setup Development Environment
+
+3. Conceptual Framework
+
+----------------------------------------------------------------------
+Section 0. Overview
+----------------------------------------------------------------------
+Swap Sweeper is a Rails web application that integrates with
+Facebook.  It is a web based application that facilitates barter
+within ones social network.
+----------------------------------------------------------------------
+Section 1. Requirements and Dependencies
+----------------------------------------------------------------------
+MongoDB
+Ruby 1.9.2
+Rails 3.0.3
+RVM http://beginrescueend.com ( Optional )
+
+----------------------------------------------------------------------
+Section 2. Setup Development Environment
+----------------------------------------------------------------------
+
+Facebook test accounts are needed to work on this application. I've
+created an utility application to manage these  accounts:
+
+https://github.com/murphybytes/fb-testuser-tools
+
+After you check out the rails project you'll need
+to run 'bundle install'  from the rails project root.  
+
+You'll need to set up localhost to point to www.swapsweep.com
+
+----------------------------------------------------------------------
+Section 3. Conceptual Framework
+----------------------------------------------------------------------
+
+The application is designed to facilitate the barter of goods and 
+services between a community of people who have a relationship with 
+one another.  There are similar applications out there but this one
+differs in two key respects.  Existing web applications rely on
+rating systems to communicate satisfaction with the individual 
+conducting a transaction. This is to attempt to build some level
+of trust with the parties involved.  The Swap application doesn't 
+do this because presumibly the parties know one another as 
+indicated through Facebook friendship.  Parties desire to stay
+in good standing within a Facebook community will facilitate the
+integrity as it pertains to behavior in a barter transaction.       

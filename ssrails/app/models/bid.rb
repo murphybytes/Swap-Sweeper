@@ -21,10 +21,9 @@ class Bid
 
   def generate_bid_message
     if self.auction && self.bidder
-      self.bid_message = BidMessage.create( :receiver => self.auction.offering.user,
-                                            :sender => self.bidder,
-                                            :bid => self,
-                                            :body => "You received a new bid on '#{ self.auction.offering.name }'" )      
+      self.create_bid_message( receiver: self.auction.offering.user,
+                                sender: self.bidder,
+                                body: "You received a new bid on '#{ self.auction.offering.name }'" )      
     end
   end
 end

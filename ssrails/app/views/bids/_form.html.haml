@@ -1,5 +1,5 @@
 = form_for( @bid, :as => 'post', :url => auction_bids_path, :html => {:multipart => true} ) do |f|
-  = f.hidden_field :user_id
+  = f.hidden_field :bidder_id
   = f.hidden_field :auction_id
   .offer-row
     .offer-thumb 

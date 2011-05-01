@@ -4,7 +4,7 @@ class BidsController < ApplicationController
   def new
     logger.debug "new bid -> #{params.inspect}" 
     @page_title = "New Bid"
-    @bid = Bid.new( :auction_id => params[:auction_id], :user_id => self.current_user.id.to_s )
+    @bid = Bid.new( :auction_id => params[:auction_id], :bidder_id => self.current_user.id.to_s )
     @auction = Auction.find( params[:auction_id] )
     logger.debug "created new bid"
   end
@@ -24,13 +24,20 @@ class BidsController < ApplicationController
       end
     end
 
+    bid.generate_bid_message
+
     redirect_to '/' and return
   end
 
   def show
-    logger.debug "show bid #{ params.inspect }"
     @page_title = "Bid Description"
     @bid = Bid.find( params[:id] )
+
+    if @bid && @bid.bid_message.receiver.id == current_user.id
+      logger.debug "marking bid message read"
+      @bid.bid_message.read = true
+      @bid.bid_message.save!
+    end
   end
 
   def accept
