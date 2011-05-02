@@ -116,6 +116,11 @@ div.row-height-medium {
 div.row-height-wide {
     height:100px;
 }
+
+div.row-width-100 {
+width: 100%;
+}
+
 div.display-row {
     clear:both;
 
@@ -127,6 +132,9 @@ div.display-row-20 {
 
 }
 
+div.left-float-col {
+    float:left;
+}
 div.display-col-a {
     float: left;
     width:45%;

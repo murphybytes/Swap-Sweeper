@@ -42,6 +42,8 @@ class BidsController < ApplicationController
 
   def accept
     # todo: acceptbidmessage
+    @page_title = "Accept Bid"
+    @bid = Bid.find( params[:id] )
   end
 
 end

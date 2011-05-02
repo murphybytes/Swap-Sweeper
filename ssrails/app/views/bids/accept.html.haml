@@ -1,0 +1,9 @@
+= form_for( @bid ) do |f|
+  .display-row.row-height-medium.row-width-100
+    .left-float-col{ :style => 'padding-right:7px;' }= link_to 'Accept Bid', '#', :id => 'save-button', :class => 'bid-accept-button-style'
+    .left-float-col= link_to 'Cancel', '#', :id => 'cancel-button', :class => 'bid-accept-button-style'
+:javascript
+  $(document).ready( function() {
+    $('#save-button').button( { icons : { primary : 'ui-icon-check' } } );
+    $('#cancel-button').button( { icons : { primary : 'ui-icon-close' }} );
+  } );

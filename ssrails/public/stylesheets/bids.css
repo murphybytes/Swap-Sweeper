@@ -26,3 +26,7 @@ div.bid-offering-rcol {
     float:left;    
     padding-bottom:17px;
 }
+
+a.bid-accept-button-style {
+width:120px;
+}
