@@ -53,3 +53,25 @@ do this because presumibly the parties know one another as
 indicated through Facebook friendship.  Parties desire to stay
 in good standing within a Facebook community will facilitate the
 integrity as it pertains to behavior in a barter transaction.       
+
+Data Model
+
+Users have multiple offerings.  An offering is a good or a service 
+that is to be sold or traded by a user.  An offering is associated
+with one active auction. The user accepts bids on an offering until 
+an acceptable bid is recieved.  A bid describes the items a counterparty
+will trade in exchange for the offering at auction.  When an acceptable 
+bid is recieved the offering user closes the auction and the swap is 
+confirmed. The offering is exchanged with the items described in the winning
+bid.  In some cases an offering will be available continuously.  In this
+case a new auction will be opened indicating that the offering is still 
+available.  An example of this type of offerings would be a service like
+plumbing or web design.  
+
+See a picture of the data model. 
+
+http://github.com/murphybytes/Swap-Sweeper/blob/master/data-model.png
+
+
+
+
