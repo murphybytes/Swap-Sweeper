@@ -44,7 +44,7 @@
         
 .display-row.display-border-bottom{ :style => 'height:35px;' }
   .display-col-b
-    = link_to 'Accept Bid', accept_bid_path( @bid.id ), {:id => 'accept-bid', :style => 'width:180px;' }
+    = link_to 'Accept', accept_bid_path( @bid.id ), {:id => 'accept-bid', :style => 'width:180px;' }
   .display-col-b
     = link_to 'Make Counter Offer', '#', {:id => 'make-counter-offer', :style => 'width:180px;' }
 

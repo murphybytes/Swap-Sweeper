@@ -8,7 +8,7 @@ class Offering
   field :description, :type => String, :description => ""
   field :quantity, :type => Integer
   field :name, :type => String, :default => ""  
-
+  field :offering_type, :type => Integer, :default => 0
   embeds_many :tags
   has_many :auctions
   ##################################
@@ -16,10 +16,18 @@ class Offering
   # part of a bid, bids on this offering
   # are referenced through auctions
   ##################################
-  has_and_belongs_to_many :bids
-
+  has_anyd_belongs_to_many :bids
   referenced_in :user
   has_many :photos
+
+  OfferingTypes = { "Goods" => 0, "Service" => 1 }
+  
+  def continuous?
+    # if offering is service or other types
+    # that may be added in the future we 
+    # create new auction each time a bid is accepted
+    self.offering_type == 1
+  end
 
   set_callback( :destroy, :after ) do |document|
     document.user.offerings.delete( document.id )
@@ -57,10 +65,6 @@ class Offering
     end
     nil
   end
-
-
-
-
 
   private
   def set_tags( classifier, tags_string )

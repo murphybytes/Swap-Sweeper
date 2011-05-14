@@ -1,3 +1,4 @@
+
 class BidsController < ApplicationController
   before_filter :check_for_access_token
   
@@ -25,7 +26,7 @@ class BidsController < ApplicationController
     end
 
     bid.generate_bid_message
-
+   
     redirect_to '/' and return
   end
 
@@ -41,9 +42,25 @@ class BidsController < ApplicationController
   end
 
   def accept
+    logger.debug "called accept #{params.inspect}"
     # todo: acceptbidmessage
-    @page_title = "Accept Bid"
+    @page_title = "Swap Confirmation"
     @bid = Bid.find( params[:id] )
+
+    if request.post?
+      logger.debug "preparing to close auction"
+      @bid.auction.open = false
+      @bid.auction.save!
+      logger.debug "auction closed marking bid as winner"
+      @bid.winner = true
+      @bid.save!
+      logger.debug "sending message to bidder that they won auction"
+      
+      offering = @bid.auction.offering
+      if offering.continuous?
+        offering.auctions.create
+      redirect_to '/'
+    end
   end
 
 end

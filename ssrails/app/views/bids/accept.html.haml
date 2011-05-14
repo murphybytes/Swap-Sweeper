@@ -1,9 +1,19 @@
-= form_for( @bid ) do |f|
+= form_tag( accept_bid_path, {:method => :post, :id => 'confirm_form'}  ) do |f|
+  = hidden_field_tag :id, @bid.id
+  .display-row.row-height-tall.row-width-100
+    .title= "Message to Bidder (Optional)"
+    =text_area :message, :contents, :rows => 5, :cols => 60  
   .display-row.row-height-medium.row-width-100
-    .left-float-col{ :style => 'padding-right:7px;' }= link_to 'Accept Bid', '#', :id => 'save-button', :class => 'bid-accept-button-style'
+    .left-float-col{ :style => 'padding-right:7px;' }= link_to 'Confirm', '#', :id => 'save-button', :class => 'bid-accept-button-style'
     .left-float-col= link_to 'Cancel', '#', :id => 'cancel-button', :class => 'bid-accept-button-style'
 :javascript
   $(document).ready( function() {
     $('#save-button').button( { icons : { primary : 'ui-icon-check' } } );
     $('#cancel-button').button( { icons : { primary : 'ui-icon-close' }} );
+    $('#save-button').click( function() {
+      document.forms['confirm_form'].submit();
+    } );
+    $('#cancel-button').click( function() {
+      window.location.reload();
+    } );
   } );
