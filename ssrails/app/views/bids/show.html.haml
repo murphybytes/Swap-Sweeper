@@ -41,12 +41,12 @@
             .lcol{ :style => 'width:20%;' }
               Description:
             .rcol= truncate( offer.description, :length => 180 )
-        
-.display-row.display-border-bottom{ :style => 'height:35px;' }
-  .display-col-b
-    = link_to 'Accept', accept_bid_path( @bid.id ), {:id => 'accept-bid', :style => 'width:180px;' }
-  .display-col-b
-    = link_to 'Make Counter Offer', '#', {:id => 'make-counter-offer', :style => 'width:180px;' }
+- unless current_user.id == @bid.bidder.id        
+  .display-row.display-border-bottom{ :style => 'height:35px;' }
+    .display-col-b
+      = link_to 'Accept', accept_bid_path( @bid.id ), {:id => 'accept-bid', :style => 'width:180px;' }
+    .display-col-b
+      = link_to 'Make Counter Offer', '#', {:id => 'make-counter-offer', :style => 'width:180px;' }
 
 :javascript
   $(document).ready( function() {

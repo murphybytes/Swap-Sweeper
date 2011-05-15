@@ -5,7 +5,7 @@ class AccountController < ApplicationController
 
   def index
     memcached_key = "friends-offering-#{facebook_user['id']}"
-    @friends_offerings = data_cache( memcached_key ) { nil }
+    @friends_offerings =  data_cache( memcached_key ) { nil }
     unless @friends_offerings
       @friends_offerings = data_cache( memcached_key ) do
         Offering.any_in( :facebook_user_id => my_friends ).excludes( :active => false ).desc( :created )

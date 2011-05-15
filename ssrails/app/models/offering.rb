@@ -16,7 +16,7 @@ class Offering
   # part of a bid, bids on this offering
   # are referenced through auctions
   ##################################
-  has_anyd_belongs_to_many :bids
+  has_and_belongs_to_many :bids
   referenced_in :user
   has_many :photos
 
@@ -28,6 +28,7 @@ class Offering
     # create new auction each time a bid is accepted
     self.offering_type == 1
   end
+
 
   set_callback( :destroy, :after ) do |document|
     document.user.offerings.delete( document.id )

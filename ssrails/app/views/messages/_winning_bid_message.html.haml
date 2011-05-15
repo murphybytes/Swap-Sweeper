@@ -1,0 +1,15 @@
+.message{ :class => message.read ? 'read' : 'unread' }
+  .profile-picture
+    = image_tag profile_picture_url( message.bid.auction.offering.user.id.to_s )
+  .message-content
+    .subject= message.subject 
+    %div= "Sent #{ format_date_time( message.created_at ) }"
+    %div
+      = link_to "Your bid", auction_bid_path( message.bid.auction.id, message.bid.id )    
+      on
+      = link_to message.bid.auction.offering.name, offering_url( message.bid.auction.offering.id )
+    %div= truncate( message.body, :length => 70 )
+  .message-controls
+    .button= link_to 'Delete Message', '#', :class => 'delete-message button'
+
+    

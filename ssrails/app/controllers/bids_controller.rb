@@ -48,17 +48,8 @@ class BidsController < ApplicationController
     @bid = Bid.find( params[:id] )
 
     if request.post?
-      logger.debug "preparing to close auction"
-      @bid.auction.open = false
-      @bid.auction.save!
-      logger.debug "auction closed marking bid as winner"
-      @bid.winner = true
-      @bid.save!
       logger.debug "sending message to bidder that they won auction"
-      
-      offering = @bid.auction.offering
-      if offering.continuous?
-        offering.auctions.create
+       @bid.set_as_winning_bid( params[:message][:contents] )
       redirect_to '/'
     end
   end
